@@ -12,307 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-
-<style>
-  /* ============ TOKENS ============ */
-  :root{
-    --ground:#120D0A;
-    --surface:#1C1510;
-    --surface-2:#241B14;
-    --surface-3:#2C2118;
-    --brass:#B8863C;
-    --brass-bright:#E3AE5C;
-    --rust:#9A3B26;
-    --rust-bright:#C4522F;
-    --ink:#EDE3D3;
-    --ink-muted:#B3A488;
-    --ink-faint:#7C7059;
-    --line: rgba(184,134,60,0.28);
-    --line-strong: rgba(184,134,60,0.55);
-
-    --font-display:'Cinzel','Trajan Pro',Georgia,serif;
-    --font-body:'Source Serif 4',Georgia,'Times New Roman',serif;
-    --font-mono:'JetBrains Mono','Courier New',monospace;
-
-    --measure:66ch;
-    --wide:1180px;
-  }
-
-  /* ============ RESET ============ */
-  *,*::before,*::after{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
-  body{
-    margin:0;
-    background:var(--ground);
-    color:var(--ink);
-    font-family:var(--font-body);
-    font-size:1.05rem;
-    line-height:1.65;
-    -webkit-font-smoothing:antialiased;
-  }
-  img,svg{max-width:100%;display:block;}
-  a{color:var(--brass-bright);}
-  a:focus-visible, button:focus-visible, .navlink:focus-visible{
-    outline:2px solid var(--brass-bright);
-    outline-offset:3px;
-  }
-  h1,h2,h3,h4{
-    font-family:var(--font-display);
-    font-weight:700;
-    color:var(--ink);
-    text-wrap:balance;
-    margin:0;
-  }
-  p{margin:0 0 1.1em 0;}
-  ul{margin:0;padding:0;list-style:none;}
-  .container{max-width:var(--wide);margin:0 auto;padding:0 clamp(1.25rem,4vw,3rem);}
-  .prose{max-width:var(--measure);}
-
-  /* subtle background texture: faint diagonal grain across whole page */
-  .grain{
-    position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.05; mix-blend-mode:overlay;
-    background-image:repeating-linear-gradient(135deg, var(--brass) 0 1px, transparent 1px 3px);
-  }
-
-  /* ============ NAV ============ */
-  header.site-nav{
-    position:sticky; top:0; z-index:50;
-    background:rgba(18,13,10,0.92);
-    backdrop-filter:blur(6px);
-    border-bottom:1px solid var(--line);
-  }
-  .nav-row{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:0.85rem clamp(1.25rem,4vw,3rem);
-    gap:1rem; flex-wrap:wrap;
-  }
-  .brand{
-    display:flex; align-items:center; gap:.6rem;
-    font-family:var(--font-mono); font-size:.85rem; letter-spacing:.12em;
-    color:var(--ink); text-decoration:none;
-  }
-  .brand .gear-icon{width:1.1rem;height:1.1rem;color:var(--brass);}
-  .navlinks{display:flex; gap:1.4rem; flex-wrap:wrap; margin:0; padding:0;}
-  .navlink{
-    font-family:var(--font-mono); font-size:.78rem; letter-spacing:.1em; text-transform:uppercase;
-    color:var(--ink-muted); text-decoration:none; padding-bottom:3px; border-bottom:1px solid transparent;
-    transition:color .2s ease, border-color .2s ease;
-  }
-  .navlink:hover, .navlink.active{ color:var(--brass-bright); border-color:var(--brass-bright); }
-
-  /* ============ HERO ============ */
-  .hero{
-    position:relative; overflow:hidden;
-    padding:clamp(4rem,10vw,7rem) 0 clamp(3rem,7vw,5rem);
-    border-bottom:1px solid var(--line);
-  }
-  .hero-grid{
-    display:grid; grid-template-columns: 1.3fr 0.9fr; gap:2.5rem; align-items:center;
-  }
-  @media (max-width:860px){ .hero-grid{ grid-template-columns:1fr; } .hero-gear-wrap{ order:-1; height:220px; } }
-  .eyebrow{
-    font-family:var(--font-mono); font-size:.78rem; letter-spacing:.16em; text-transform:uppercase;
-    color:var(--brass); margin:0 0 1rem 0; display:flex; align-items:center; gap:.6rem;
-  }
-  .eyebrow::before{content:''; width:1.4rem; height:1px; background:var(--brass);}
-  .hero h1{
-    font-size:clamp(2.6rem,6.5vw,4.6rem); line-height:1.02; letter-spacing:.01em;
-  }
-  .hero .subhead{
-    font-family:var(--font-body); font-style:italic; color:var(--brass-bright);
-    font-size:clamp(1.1rem,2.2vw,1.35rem); margin:1.1rem 0 1.3rem 0; max-width:42ch; line-height:1.4;
-  }
-  .hero .lede{margin-top:1.3rem; max-width:56ch; color:var(--ink); font-size:1.05rem;}
-  .hero-ctas{display:flex; gap:1rem; flex-wrap:wrap; margin-top:1.6rem;}
-  .btn{
-    font-family:var(--font-mono); font-size:.8rem; letter-spacing:.08em; text-transform:uppercase;
-    padding:.85rem 1.4rem; text-decoration:none; border:1px solid var(--brass); color:var(--ink);
-    display:inline-flex; align-items:center; gap:.5rem; transition:all .2s ease; background:transparent;
-  }
-  .btn:hover{ background:var(--brass); color:var(--ground); }
-  .btn.ghost{ border-color:var(--line-strong); color:var(--ink-muted); }
-  .btn.ghost:hover{ border-color:var(--brass-bright); color:var(--brass-bright); background:transparent; }
-  .hero-note{
-    margin-top:1.4rem; font-family:var(--font-mono); font-size:.78rem; color:var(--ink-faint);
-    letter-spacing:.03em;
-  }
-  .hero-gear-wrap{ position:relative; display:flex; align-items:center; justify-content:center; height:340px; }
-  .hero-photo-frame{
-    position:relative; width:100%; max-width:300px; aspect-ratio: 3 / 3.4;
-  }
-  .hero-photo-frame img{
-    width:100%; height:100%; object-fit:cover; object-position:center 22%; display:block;
-    border:1px solid var(--line-strong);
-    filter: grayscale(55%) sepia(28%) contrast(1.08) brightness(0.95) saturate(1.05);
-  }
-  .hero-photo-frame::after{
-    content:''; position:absolute; inset:0; pointer-events:none;
-    background: radial-gradient(circle at 50% 30%, transparent 45%, rgba(18,13,10,0.35) 100%);
-    mix-blend-mode:multiply;
-  }
-  .frame-corner{ position:absolute; width:20px; height:20px; border-color:var(--brass); z-index:2; }
-  .corner-tl{ top:-7px; left:-7px; border-top:2px solid; border-left:2px solid; }
-  .corner-tr{ top:-7px; right:-7px; border-top:2px solid; border-right:2px solid; }
-  .corner-bl{ bottom:-7px; left:-7px; border-bottom:2px solid; border-left:2px solid; }
-  .corner-br{ bottom:-7px; right:-7px; border-bottom:2px solid; border-right:2px solid; }
-  .status-strip{
-    margin-top:clamp(2.5rem,5vw,4rem);
-    border-top:1px solid var(--line); padding-top:.9rem;
-    font-family:var(--font-mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase;
-    color:var(--ink-faint); display:flex; flex-wrap:wrap; gap:.4rem 1.6rem;
-  }
-  .status-strip span b{color:var(--brass); font-weight:500;}
-
-  /* ============ GEAR (generated) ============ */
-  .gear{ position:relative; }
-  .gear svg{ width:100%; height:100%; overflow:visible; }
-  .gear .gear-rotor{ transform-origin:100px 100px; }
-  @media (prefers-reduced-motion: no-preference){
-    .gear.spin .gear-rotor{ animation:spin 70s linear infinite; }
-    .gear.spin-rev .gear-rotor{ animation:spin-rev 54s linear infinite; }
-  }
-  @keyframes spin{ to{ transform:rotate(360deg); } }
-  @keyframes spin-rev{ to{ transform:rotate(-360deg); } }
-  .gear-poly{ fill:none; stroke:var(--brass); stroke-width:2; opacity:.55; }
-  .gear-hub{ fill:none; stroke:var(--brass); stroke-width:1.4; opacity:.7; }
-  .gear-hub-hole{ fill:var(--ground); stroke:var(--brass); stroke-width:1; opacity:.7;}
-
-  /* ============ SECTIONS / PLATES ============ */
-  section.plate{
-    padding:clamp(3.5rem,8vw,6rem) 0; border-bottom:1px solid var(--line); position:relative;
-  }
-  section.plate:last-of-type{ border-bottom:none; }
-  .plate-head{ margin-bottom:2.6rem; }
-  .plate-head h2{ font-size:clamp(1.9rem,4vw,2.6rem); }
-  .plate-intro{ color:var(--ink-muted); max-width:60ch; margin-top:.8rem; }
-
-  /* ============ STORY ============ */
-  .story-body p{ font-size:1.08rem; }
-  .story-body a{ text-decoration:underline; text-decoration-color:var(--line-strong); text-underline-offset:3px; }
-  .story-body a:hover{ text-decoration-color:var(--brass-bright); }
-  blockquote.thesis{
-    margin:2rem 0; padding:1.2rem 1.5rem; border-left:2px solid var(--brass);
-    font-family:var(--font-display); font-size:1.15rem; color:var(--brass-bright); font-weight:600;
-  }
-
-  /* ============ WORK TIMELINE ============ */
-  .timeline{ display:flex; flex-direction:column; gap:0; border-top:1px solid var(--line); }
-  .tl-entry{ display:grid; grid-template-columns:220px 1fr; gap:2rem; padding:2rem 0; border-bottom:1px solid var(--line); }
-  @media (max-width:700px){ .tl-entry{ grid-template-columns:1fr; gap:.6rem; } }
-  .tl-meta{ font-family:var(--font-mono); font-size:.78rem; color:var(--ink-faint); letter-spacing:.03em; }
-  .tl-meta .tl-dates{ color:var(--brass); display:block; margin-bottom:.35rem; }
-  .tl-role{ font-family:var(--font-display); font-size:1.3rem; margin-bottom:.2rem; }
-  .tl-org{ color:var(--ink-muted); font-style:italic; margin-bottom:.9rem; font-family:var(--font-body); }
-  .tl-list{ display:flex; flex-direction:column; gap:.5rem; }
-  .tl-list li{ position:relative; padding-left:1.1rem; color:var(--ink); }
-  .tl-list li::before{ content:'—'; position:absolute; left:0; color:var(--brass); }
-
-  /* ============ STAT ROW ============ */
-  .stat-row{ display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); margin:2.2rem 0; }
-  .stat{ background:var(--surface); padding:1.3rem 1.4rem; }
-  .stat .stat-num{ font-family:var(--font-mono); font-variant-numeric:tabular-nums; font-size:1.9rem; color:var(--brass-bright); font-weight:700; line-height:1; }
-  .stat .stat-label{ font-family:var(--font-mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); margin-top:.5rem; }
-  .stat .stat-sub{ font-size:.8rem; color:var(--ink-muted); margin-top:.3rem; font-family:var(--font-body); }
-
-  /* ============ MEDIA SLOT ============ */
-  .media-slot{
-    border:1px dashed var(--line-strong);
-    background:
-      repeating-linear-gradient(135deg, rgba(184,134,60,0.06) 0 10px, transparent 10px 20px),
-      var(--surface-2);
-    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.5rem;
-    padding:1.4rem 1rem; min-height:120px; text-align:center;
-  }
-  .media-slot .icon{ width:1.6rem; height:1.6rem; color:var(--brass); opacity:.85; }
-  .media-slot .slot-type{ font-family:var(--font-mono); font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color:var(--brass); }
-  .media-slot .slot-desc{ font-family:var(--font-mono); font-size:.72rem; color:var(--ink-faint); max-width:22ch; }
-  .media-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:.9rem; margin:1.3rem 0 2rem; }
-
-  /* ============ BADGES ============ */
-  .badge{
-    display:inline-flex; align-items:center; gap:.4rem; font-family:var(--font-mono); font-size:.68rem;
-    letter-spacing:.1em; text-transform:uppercase; padding:.3rem .6rem; border:1px solid currentColor;
-  }
-  .badge.active{ color:var(--brass-bright); background:rgba(184,134,60,0.08); }
-  .badge.archived{ color:var(--ink-faint); }
-  .badge.ongoing{ color:var(--rust-bright); background:rgba(154,59,38,0.12); }
-  .badge-dot{ width:.4rem; height:.4rem; border-radius:50%; background:currentColor; }
-
-  /* ============ FLAGSHIP PROJECT ============ */
-  .flagship{ border:1px solid var(--line); background:var(--surface); padding:clamp(1.6rem,4vw,2.6rem); }
-  .flagship-head{ display:flex; flex-wrap:wrap; align-items:baseline; gap:.9rem 1.2rem; margin-bottom:.6rem; }
-  .flagship-head h3{ font-size:clamp(1.6rem,3vw,2.1rem); }
-  .flagship-role{ font-family:var(--font-mono); font-size:.82rem; color:var(--ink-muted); margin-bottom:1.6rem; }
-  .context-line{ font-style:italic; color:var(--ink-faint); font-size:.92rem; border-left:2px solid var(--line-strong); padding-left:.9rem; margin:0 0 2rem 0; }
-
-  .phase{ padding:2rem 0; border-top:1px solid var(--line); }
-  .phase-head{ display:flex; align-items:center; gap:1rem; margin-bottom:.9rem; }
-  .phase-num{
-    font-family:var(--font-display); font-size:1rem; color:var(--brass); border:1px solid var(--brass);
-    width:2.2rem; height:2.2rem; display:flex; align-items:center; justify-content:center; flex-shrink:0;
-  }
-  .phase-head h4{ font-size:1.25rem; }
-  .phase-body{ color:var(--ink); }
-  .phase-body .sub{ margin:1.1rem 0 .5rem; font-family:var(--font-mono); font-size:.75rem; letter-spacing:.06em; text-transform:uppercase; color:var(--brass); }
-  .credit-note{ font-size:.88rem; color:var(--ink-muted); font-style:italic; margin-top:.6rem; }
-
-  .support-module{ margin-top:1rem; border-top:1px solid var(--line); padding-top:2rem; }
-  .support-module h4{ font-size:1.05rem; font-family:var(--font-mono); text-transform:uppercase; letter-spacing:.08em; color:var(--brass); margin-bottom:1.2rem; }
-  .support-grid{ display:grid; grid-template-columns:1.1fr 1fr; gap:1.6rem; align-items:start; }
-  @media (max-width:760px){ .support-grid{ grid-template-columns:1fr; } }
-  .support-list{ display:flex; flex-direction:column; gap:1rem; }
-  .support-list li{ padding-left:1.1rem; position:relative; font-size:.96rem; color:var(--ink); }
-  .support-list li::before{ content:'▸'; position:absolute; left:0; color:var(--brass); }
-  .fea-callout{ border:1px solid var(--line-strong); padding:1.2rem; background:var(--surface-2); }
-  .fea-callout .slot-desc{ margin-top:.4rem; }
-  .fea-finding{ font-size:.92rem; margin-top:.9rem; color:var(--ink-muted); }
-
-  .closing-note{ margin-top:2.4rem; padding-top:2rem; border-top:1px solid var(--line); }
-  .closing-note p{ font-size:1.05rem; font-style:italic; color:var(--brass-bright); max-width:60ch; }
-
-  /* ============ LIGHT PROJECT CARDS ============ */
-  .light-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.4rem; margin-top:2.4rem; }
-  .light-card{ border:1px solid var(--line); background:var(--surface); padding:1.5rem; display:flex; flex-direction:column; gap:.9rem; }
-  .light-card h4{ font-size:1.15rem; }
-  .light-card .lc-meta{ font-family:var(--font-mono); font-size:.72rem; color:var(--ink-faint); }
-  .light-card ul{ display:flex; flex-direction:column; gap:.4rem; }
-  .light-card li{ font-size:.9rem; padding-left:1rem; position:relative; color:var(--ink-muted); }
-  .light-card li::before{ content:'—'; position:absolute; left:0; color:var(--brass); }
-  .lc-status{ margin-top:auto; padding-top:.6rem; border-top:1px solid var(--line); font-family:var(--font-mono); font-size:.7rem; color:var(--ink-faint); }
-
-  /* ============ SKILLS ============ */
-  .skill-groups{ display:flex; flex-direction:column; gap:1.6rem; }
-  .skill-group{ display:grid; grid-template-columns:180px 1fr; gap:1rem; align-items:start; padding:1.1rem 0; border-top:1px solid var(--line); }
-  @media (max-width:640px){ .skill-group{ grid-template-columns:1fr; gap:.6rem; } }
-  .skill-group-name{ font-family:var(--font-mono); font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; color:var(--brass); }
-  .tag-row{ display:flex; flex-wrap:wrap; gap:.5rem; }
-  .tag{ font-family:var(--font-mono); font-size:.8rem; padding:.35rem .7rem; border:1px solid var(--line-strong); color:var(--ink); }
-
-  /* ============ PERSONAL ============ */
-  .personal-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.4rem; }
-  .personal-card{ border:1px solid var(--line); background:var(--surface); padding:1.4rem; display:flex; flex-direction:column; gap:.9rem; }
-  .personal-card h4{ font-size:1.1rem; display:flex; align-items:center; gap:.5rem; }
-  .personal-card .icon-sm{ width:1.1rem; height:1.1rem; color:var(--brass); }
-  .personal-card p{ font-size:.9rem; color:var(--ink-muted); margin:0; }
-  .personal-card .from-story{ font-family:var(--font-mono); font-size:.68rem; color:var(--ink-faint); }
-
-  /* ============ CONTACT ============ */
-  .contact-row{ display:flex; flex-wrap:wrap; gap:1rem; margin-top:1.6rem; }
-  .contact-item{ display:flex; align-items:center; gap:.6rem; font-family:var(--font-mono); font-size:.9rem; }
-  .btn[disabled]{ opacity:.45; cursor:not-allowed; pointer-events:none; border-style:dashed; }
-
-  footer.site-foot{ padding:2.5rem 0 3.5rem; }
-  .foot-row{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; font-family:var(--font-mono); font-size:.72rem; color:var(--ink-faint); letter-spacing:.04em; }
-  .foot-gear{ width:1.4rem; height:1.4rem; color:var(--brass); opacity:.6; }
-
-  .skip-link{
-    position:absolute; left:-999px; top:auto;
-    background:var(--brass); color:var(--ground); padding:.6rem 1rem; font-family:var(--font-mono); font-size:.8rem;
-    z-index:100;
-  }
-  .skip-link:focus{ left:1rem; top:1rem; }
-</style>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <div class="grain"></div>
@@ -320,64 +20,30 @@
 <a class="skip-link" href="#main">Skip to content</a>
 
 <svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
-  <symbol id="i-photo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="3" y="6" width="18" height="14" rx="1"></rect>
-    <path d="M8 6l1.5-2.5h5L16 6"></path>
-    <circle cx="12" cy="13" r="3.5"></circle>
-  </symbol>
-  <symbol id="i-video" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="3" y="5" width="14" height="14" rx="1"></rect>
-    <path d="M17 9.5l4-2.3v9.6l-4-2.3"></path>
-  </symbol>
-  <symbol id="i-cad" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="12" cy="7" r="2"></circle>
-    <path d="M10.6 8.6L5 19h5"></path>
-    <path d="M13.4 8.6L19 19h-5"></path>
-    <path d="M9 19h6"></path>
-  </symbol>
-  <symbol id="i-diagram" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M3 18c3-9 6-13 9-13s6 4 9 13"></path>
-    <path d="M3 18h18"></path>
-  </symbol>
   <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
     <rect x="3" y="5" width="18" height="14" rx="1"></rect>
     <path d="M4 6.5l8 6 8-6"></path>
-  </symbol>
-  <symbol id="i-snow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M12 2v20M4.5 6l15 12M19.5 6l-15 12"></path>
-  </symbol>
-  <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M4 4.5C4 4.5 8 3.5 12 5.5c4-2 8-1 8-1v14c0 0-4-1-8 1-4-2-8-1-8-1z"></path>
-    <path d="M12 5.5v13"></path>
-  </symbol>
-  <symbol id="i-controller" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M6 9h12l2 7-3 2-3-3H10l-3 3-3-2z"></path>
-    <path d="M9 11.5v3M7.5 13h3"></path>
-    <circle cx="17" cy="12" r=".6" fill="currentColor" stroke="none"></circle>
-    <circle cx="15" cy="14" r=".6" fill="currentColor" stroke="none"></circle>
   </symbol>
 </svg>
 
 <header class="site-nav">
   <div class="nav-row">
-    <a class="brand" href="#top">
+    <a class="brand" href="index.html#top">
       <span class="gear icon-only" style="display:inline-block;width:1.1rem;height:1.1rem;"><svg viewBox="0 0 200 200" class="gear-icon"><polygon class="gear-poly" data-teeth="10" data-outer="92" data-inner="72" style="stroke-width:8;"></polygon><circle class="gear-hub" cx="100" cy="100" r="28" style="stroke-width:8;"></circle></svg></span>
       OSCAR LUO
     </a>
     <ul class="navlinks">
-      <li><a class="navlink" data-nav href="#story">Story</a></li>
-      <li><a class="navlink" data-nav href="#work">Work</a></li>
-      <li><a class="navlink" data-nav href="#projects">Projects</a></li>
-      <li><a class="navlink" data-nav href="#skills">Skills</a></li>
-      <li><a class="navlink" data-nav href="#personal">Personal</a></li>
-      <li><a class="navlink" data-nav href="#contact">Contact</a></li>
+      <li><a class="navlink active" href="index.html">About</a></li>
+      <li><a class="navlink" href="story.html">Story</a></li>
+      <li><a class="navlink" href="work.html">Work</a></li>
+      <li><a class="navlink" href="outside.html">Outside the Lab</a></li>
     </ul>
   </div>
 </header>
 
 <main id="main">
 
-  <!-- ============ HERO ============ -->
+  <!-- ============ HERO / ABOUT ============ -->
   <div id="top"></div>
   <section class="hero">
     <div class="container hero-grid">
@@ -386,17 +52,13 @@
         <h1>Oscar Luo</h1>
         <p class="lede">I'm a mechanical engineer building exoskeletons — currently the hip exoskeleton lead at Carnegie Mellon's Metamobility Lab, working on my M.S. after a B.S. from Virginia Tech. A device with great hardware and mediocre control still moves inhumanly; great control on the wrong hardware never reaches the person wearing it.</p>
         <div class="hero-ctas">
-          <a class="btn" href="#story">Read How I Got Here ↓</a>
-          <a class="btn ghost" href="#projects">See the Work ↓</a>
+          <a class="btn" href="story.html">Read How I Got Here ↓</a>
+          <a class="btn ghost" href="work.html">See the Work ↓</a>
         </div>
         <p class="hero-note">Open to industry robotics/controls roles and continued research.</p>
       </div>
       <div class="hero-gear-wrap">
         <div class="hero-photo-frame">
-          <span class="frame-corner corner-tl"></span>
-          <span class="frame-corner corner-tr"></span>
-          <span class="frame-corner corner-bl"></span>
-          <span class="frame-corner corner-br"></span>
           <img src="images/oscar-photo.jpg" alt="Oscar Luo" loading="eager">
         </div>
       </div>
@@ -406,211 +68,6 @@
       <span>LOCATION: <b>PITTSBURGH, PA</b></span>
       <span>FOCUS: <b>EXOSKELETON HARDWARE + CONTROL</b></span>
       <span>NEXT: <b>TORQUE TRANSMISSIBILITY STUDY</b></span>
-    </div>
-  </section>
-
-  <!-- ============ STORY ============ -->
-  <section class="plate" id="story">
-    <div class="container">
-      <div class="plate-head reveal">
-        <p class="eyebrow">Record I — Origin</p>
-        <h2>How I Got Here</h2>
-      </div>
-      <div class="prose story-body reveal">
-        <p>I grew up on Warhammer and Halo, which is probably the honest answer for why exoskeletons pulled at me before I understood what the field actually was.</p>
-        <p>In undergrad at Virginia Tech, I was doing fairly traditional mechanical engineering coursework, and I hadn't found my direction yet. I applied to a robotics lab and got rejected — I simply wasn't competitive enough at the time. That rejection turned out to be the reason I'm here now. It was the wake-up call I needed to actually commit to the field instead of drifting through it.</p>
-        <p>After graduating, I took a couple of jobs that didn't line up with what I wanted (see my <a href="#work">service record</a>), and realized how much I was missing to actually build an exoskeleton myself. At the time, I thought the gap was hardware, electronics, and control — full stop. So I took an <a href="#work-soochow">embedded systems research position</a> specifically to build that mechatronics foundation before going further.</p>
-        <p>I came to Carnegie Mellon to study control and close what I thought was the last gap. I ended up in the <a href="#project-hip-exoskeleton">Metamobility Lab</a>, and getting close to real exoskeleton hardware showed me the field is further from what I'd imagined than I expected — and that my three-part list was incomplete.</p>
-        <p>Exoskeleton control isn't automotive or humanoid control. It's not really about PID or nonlinear control theory the way I'd assumed — it's about mapping human intent into assistance, in real time, for a person who's wearing the result. And underneath all of it, you need to understand human biomechanics, not just hardware and software.</p>
-        <blockquote class="thesis">Hardware and control carry equal weight. Great hardware with bad control still feels inhuman to move in. Great control on the wrong hardware never reaches anyone.</blockquote>
-        <p>That's the balance I'm building toward now — roughly 60% hardware, 40% control, combined.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ WORK EXPERIENCE ============ -->
-  <section class="plate" id="work">
-    <div class="container">
-      <div class="plate-head reveal">
-        <p class="eyebrow">Record II — Service Record</p>
-        <h2>Work Experience</h2>
-        <p class="plate-intro">Paid roles, kept intentionally lightweight — the depth lives in the projects below.</p>
-      </div>
-      <div class="timeline reveal">
-        <div class="tl-entry" id="work-soochow">
-          <div class="tl-meta"><span class="tl-dates">Apr 2024 – Mar 2025</span>Suzhou, Jiangsu, China</div>
-          <div>
-            <div class="tl-role">Lab Assistant</div>
-            <div class="tl-org">Soochow University, Embedded Systems Lab</div>
-            <ul class="tl-list">
-              <li>Developed synchronous serial communication (SPI) between two MCUs and a host computer as part of a graduate research project</li>
-              <li>Built a C# UI to translate between characters, binary, decimal, and hex, improving debugging efficiency</li>
-              <li>Prepared 68 PCBs by soldering electrical components for an undergraduate course</li>
-            </ul>
-          </div>
-        </div>
-        <div class="tl-entry" id="work-hounen">
-          <div class="tl-meta"><span class="tl-dates">Jul 2023 – Dec 2023</span>Orangeburg, SC, USA</div>
-          <div>
-            <div class="tl-role">Equipment Engineer</div>
-            <div class="tl-org">Hounen Solar America Inc.</div>
-            <ul class="tl-list">
-              <li>Maintained and operated a solar cell stringer soldering machine, reducing unplanned downtime by 40%</li>
-              <li>Reduced assembly line blockage from twice a day to once per three days using FMEA</li>
-              <li>Wrote standardized operating procedures for 4 machines, cutting average training time by 50%</li>
-              <li>Instructed over 12 employees on machine operation along the assembly line</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ PROJECTS ============ -->
-  <section class="plate" id="projects">
-    <div class="container">
-      <div class="plate-head reveal">
-        <p class="eyebrow">Record III — Works</p>
-        <h2>What I've Done</h2>
-        <p class="plate-intro">One flagship project, told in phases — the failures and iterations included, not just the outcome — followed by earlier work from undergrad.</p>
-      </div>
-
-      <div class="flagship reveal" id="project-hip-exoskeleton">
-        <div class="flagship-head">
-          <h3>Hip Exoskeleton</h3>
-          <span class="badge active"><span class="badge-dot"></span>Active — Sep 2025–Present</span>
-        </div>
-        <p class="flagship-role">Lead Designer · Metamobility Lab, Carnegie Mellon University</p>
-
-        <p class="context-line">Before touching hardware: two months cleaning up an existing PhD student's control codebase — unglamorous, undocumented work, but it's how I got embedded in the project in the first place.</p>
-
-        <div class="stat-row">
-          <div class="stat">
-            <div class="stat-num">4.0kg</div>
-            <div class="stat-label">Current weight</div>
-            <div class="stat-sub">Down from 4.2kg baseline, via 3.1kg — see trade-off below</div>
-          </div>
-          <div class="stat">
-            <div class="stat-num">17 N·m</div>
-            <div class="stat-label">Torque before rocking</div>
-            <div class="stat-sub">Up from 12 N·m after the thigh redesign</div>
-          </div>
-          <div class="stat">
-            <div class="stat-num">+</div>
-            <div class="stat-label">Metabolic pilot result</div>
-            <div class="stat-sub">Positive reduction across all pilot subjects</div>
-          </div>
-        </div>
-
-        <div class="phase">
-          <div class="phase-head"><span class="phase-num">I</span><h4>Feasibility — Commercial Teardown &amp; Motor Conversion</h4></div>
-          <div class="phase-body">
-            <p>Our PI wanted to benchmark a commercial device against the lab's own past-student designs. I disassembled the commercial unit and converted it to accept our motor and Jetson, which used a completely different input/output pattern than the stock hardware — and the PI didn't want the commercial unit damaged, so this had to be non-destructive reverse engineering with no CAD or engineering drawings to start from.</p>
-            <p>The hardest part was mounting the motor driver securely. Without a way to see the true hole pattern on the commercial housing, earlier mounting attempts left the encoder reader misaligned. I ended up projecting the part to a larger scale with a shadow-casting rig, then measured the hole coordinates on a lathe to recover the pattern precisely enough to design a proper adaptor — about two weeks of work.</p>
-            <p>Along the way, the PLA I was printing with deformed and melted from motor heat, which sent me back to respec the printer materials before continuing.</p>
-            <p class="sub">Media</p>
-            <div class="media-grid">
-              <div class="media-slot"><svg class="icon"><use href="#i-video"></use></svg><span class="slot-type">Video</span><span class="slot-desc">Shadow-casting rig in use</span></div>
-              <div class="media-slot"><svg class="icon"><use href="#i-photo"></use></svg><span class="slot-type">Photo</span><span class="slot-desc">The finished adaptor</span></div>
-              <div class="media-slot"><svg class="icon"><use href="#i-cad"></use></svg><span class="slot-type">CAD</span><span class="slot-desc">Adaptor design</span></div>
-              <div class="media-slot"><svg class="icon"><use href="#i-photo"></use></svg><span class="slot-type">Photo</span><span class="slot-desc">Melted PLA failure</span></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="phase">
-          <div class="phase-head"><span class="phase-num">II</span><h4>First Validation</h4></div>
-          <div class="phase-body">
-            <p>Metabolic testing on the converted device showed a 1% reduction versus no exoskeleton — a single subject, but the first measurable metabolic benefit this lab had produced. The past student's device hadn't shown one. That result was enough for our PI to fully commit to a ground-up reverse-engineering of the device.</p>
-          </div>
-        </div>
-
-        <div class="phase">
-          <div class="phase-head"><span class="phase-num">III</span><h4>Full Reverse-Engineered Device</h4></div>
-          <div class="phase-body">
-            <p>I reverse-engineered the complete commercial device — my CAD ended up visually near-identical to the original. Our 3D printer was too small for the full-scale parts, so I redesigned around that constraint while preserving the structure, keeping everything manufacturable in-house.</p>
-            <p class="sub">Hinge failures</p>
-            <p>The abduction/adduction hinge was too weak for the loads passing through it. I tried several mechanical hinge designs; all of them broke under load, which pushed a custom hinge onto the roadmap for a future iteration.</p>
-            <p class="sub">The motor rocking problem</p>
-            <p>At high torque, the motor rocked forward and backward. My first hypothesis was the pelvis interface — I iterated through several rough geometries, testing fit directly on people to see where the gaps were. Eventually I took a cue from Georgia Tech's device design: using surfacing to generate a generic hip profile, then building the pelvis interface as an offset of that profile. Fit improved significantly.</p>
-            <p>Rocking persisted even with the pelvis fixed, which pointed to the thigh interface instead. Redesigning it into a calf-like structure eliminated rocking up to 17 N·m — a clear before/after, not just a marginal improvement.</p>
-            <p class="sub">Media</p>
-            <div class="media-grid">
-              <div class="media-slot"><svg class="icon"><use href="#i-cad"></use></svg><span class="slot-type">CAD</span><span class="slot-desc">Device vs. commercial, side by side</span></div>
-              <div class="media-slot"><svg class="icon"><use href="#i-video"></use></svg><span class="slot-type">Video</span><span class="slot-desc">Hinges breaking under load</span></div>
-              <div class="media-slot"><svg class="icon"><use href="#i-photo"></use></svg><span class="slot-type">Photo</span><span class="slot-desc">Pelvis interface iterations</span></div>
-              <div class="media-slot"><svg class="icon"><use href="#i-video"></use></svg><span class="slot-type">Video</span><span class="slot-desc">Calf vs. old design, rocking compared</span></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="phase">
-          <div class="phase-head"><span class="phase-num">IV</span><h4>Trade-off &amp; Generalization</h4></div>
-          <div class="phase-body">
-            <p>Solving the rocking issue brought the weight back up from 3.1kg to around 4kg — which on paper works against the point of a lightweight design. I'm treating that honestly as a trade-off rather than a regression: a fully weight-optimized structure couldn't survive the loads it needed to, so the extra mass buys the structural integrity the device actually needs to function.</p>
-            <p>From there, I worked with a PhD student to generalize the interface — a pelvis that fits multiple body sizes, alongside a straight-bar design — and ran a pilot metabolic test across three subjects, with a positive reduction across all of them.</p>
-            <p class="sub">Media</p>
-            <div class="media-grid">
-              <div class="media-slot"><svg class="icon"><use href="#i-cad"></use></svg><span class="slot-type">CAD</span><span class="slot-desc">Generalized, multi-size interface</span></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="support-module">
-          <h4>Also on this project</h4>
-          <div class="support-grid">
-            <ul class="support-list">
-              <li>Supported 5 human-subject experiments — Bertec instrumented treadmill, K5 metabolic cart, marker-based motion capture, EMG placement.</li>
-              <li>Mentored 3 undergraduates. Built metabolic probes for a labmate's data pipeline.</li>
-              <li>Currently supporting two PhD students: one on data collection and processing, the other on an outdoor human experiment — where I'm writing the test plans, pilot-testing protocols on myself, and scouting locations.</li>
-            </ul>
-            <div class="fea-callout">
-              <div class="media-slot" style="min-height:90px;"><svg class="icon"><use href="#i-diagram"></use></svg><span class="slot-type">Diagram</span><span class="slot-desc">FEA stress plot, thigh interface</span></div>
-              <p class="fea-finding">One mentee ran an FEA study on the thigh interface: the higher up the thigh the curve is placed, the lower the torsional force — a real, usable finding that made the hardware more stable.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="closing-note">
-          <p>Next: I want to study how different interface designs affect torque transmissibility — the question underneath all of this, and the next step toward getting the hardware/control ratio right.</p>
-        </div>
-      </div>
-
-      <div class="light-grid reveal">
-        <div class="light-card">
-          <div class="lc-meta">DJI RoboMaster Competition · Virginia Tech · 2021–2023</div>
-          <h4>"Hero" Sub-team, Mechanical Engineer</h4>
-          <ul>
-            <li>Redesigned the golf-ball launcher feed path, cutting weight by 67% and assembly time by 40%</li>
-            <li>Built a mobile welded test chassis to field-test target lock-on robustness</li>
-            <li>Trained 4 new members on converting 3D CAD into CNC-manufacturable parts</li>
-          </ul>
-          <div class="media-slot" style="min-height:70px;"><svg class="icon"><use href="#i-photo"></use></svg><span class="slot-type">Photo</span><span class="slot-desc">Launcher build</span></div>
-          <div class="lc-status">Full write-up pending · <span class="badge archived">Archived</span></div>
-        </div>
-        <div class="light-card">
-          <div class="lc-meta">Senior Capstone · MELD Automation Prep Line · 2022–2023</div>
-          <h4>Mechanical Engineer</h4>
-          <ul>
-            <li>Designed a pneumatic trap door releasing cut bar stock within 13% of the allotted cycle time</li>
-            <li>Iterated corner-bracket geometry through FEA to a 2% safety-factor margin</li>
-            <li>Fabricated motor brackets by CNC mill and MIG welder, rated to 3× desired mass</li>
-          </ul>
-          <div class="media-slot" style="min-height:70px;"><svg class="icon"><use href="#i-cad"></use></svg><span class="slot-type">CAD</span><span class="slot-desc">Trap door subsystem</span></div>
-          <div class="lc-status">Full write-up pending · <span class="badge archived">Archived</span></div>
-        </div>
-        <div class="light-card">
-          <div class="lc-meta">Intro to Human–Robot Interaction · Virginia Tech · 2023</div>
-          <h4>"Best Pokémon Trainer" — Inverse RL</h4>
-          <ul>
-            <li>Built a Python database of Pokémon statistics, widening AI-generated variation by ~400%</li>
-            <li>Recovered reward weights via Metropolis–Hastings, std. dev. of 0.025</li>
-            <li>Trained an IRL agent to a 72% win rate vs. a simple AI, 45% vs. a human</li>
-          </ul>
-          <div class="media-slot" style="min-height:70px;"><svg class="icon"><use href="#i-diagram"></use></svg><span class="slot-type">Diagram</span><span class="slot-desc">Reward recovery results</span></div>
-          <div class="lc-status">Full write-up pending · <span class="badge archived">Archived</span></div>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -637,33 +94,6 @@
         <div class="skill-group">
           <div class="skill-group-name">Learning</div>
           <div class="tag-row"><span class="tag">ROS / ROS 2</span><span class="tag">OpenCV</span><span class="tag">Human-in-the-loop Optimization</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ PERSONAL ============ -->
-  <section class="plate" id="personal">
-    <div class="container">
-      <div class="plate-head reveal">
-        <p class="eyebrow">Record V — Outside the Lab</p>
-        <h2>Outside the Lab</h2>
-      </div>
-      <div class="personal-grid reveal">
-        <div class="personal-card">
-          <h4><svg class="icon-sm"><use href="#i-snow"></use></svg>Snowboarding</h4>
-          <p>More to come here.</p>
-          <div class="media-slot" style="min-height:70px;"><svg class="icon"><use href="#i-photo"></use></svg><span class="slot-type">Photo</span></div>
-        </div>
-        <div class="personal-card">
-          <h4><svg class="icon-sm"><use href="#i-controller"></use></svg>Warhammer 40k</h4>
-          <p>The root of the pull toward exoskeletons, long before I knew the field existed.</p>
-          <p class="from-story">— see <a href="#story">My Story</a></p>
-        </div>
-        <div class="personal-card">
-          <h4><svg class="icon-sm"><use href="#i-controller"></use></svg>Halo</h4>
-          <p>Same origin as above — power armor got there first.</p>
-          <p class="from-story">— see <a href="#story">My Story</a></p>
         </div>
       </div>
     </div>
@@ -696,45 +126,6 @@
   </div>
 </footer>
 
-<script>
-(function(){
-  // ---- generate gear polygons ----
-  function gearPoints(teeth, outerR, innerR, cx, cy){
-    var n = teeth * 2, pts = [];
-    for (var i = 0; i < n; i++){
-      var r = (i % 2 === 0) ? outerR : innerR;
-      var a = (i / n) * Math.PI * 2 - Math.PI / 2;
-      pts.push((cx + r * Math.cos(a)).toFixed(1) + ',' + (cy + r * Math.sin(a)).toFixed(1));
-    }
-    return pts.join(' ');
-  }
-  document.querySelectorAll('.gear-poly').forEach(function(poly){
-    var teeth = parseInt(poly.dataset.teeth || '14', 10);
-    var outer = parseFloat(poly.dataset.outer || '90');
-    var inner = parseFloat(poly.dataset.inner || '70');
-    poly.setAttribute('points', gearPoints(teeth, outer, inner, 100, 100));
-  });
-
-  // ---- scrollspy nav ----
-  var navlinks = Array.prototype.slice.call(document.querySelectorAll('[data-nav]'));
-  var sections = navlinks.map(function(link){
-    return document.getElementById(link.getAttribute('href').slice(1));
-  }).filter(Boolean);
-  if ('IntersectionObserver' in window && sections.length){
-    var spy = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        var id = entry.target.id;
-        var link = navlinks.find(function(l){ return l.getAttribute('href') === '#' + id; });
-        if (!link) return;
-        if (entry.isIntersecting){
-          navlinks.forEach(function(l){ l.classList.remove('active'); });
-          link.classList.add('active');
-        }
-      });
-    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
-    sections.forEach(function(s){ spy.observe(s); });
-  }
-})();
-</script>
+<script src="js/main.js"></script>
 </body>
 </html>
