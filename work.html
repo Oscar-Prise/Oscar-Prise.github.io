@@ -101,61 +101,175 @@
           </div>
         </div>
 
-        <div class="phase">
-          <div class="phase-head"><span class="phase-num">I</span><h4>Feasibility — Commercial Teardown &amp; Motor Conversion</h4></div>
-          <div class="phase-body">
-            <p>Our PI wanted to benchmark a commercial device against the lab's own past-student designs. I disassembled the commercial unit and converted it to accept our motor and Jetson, which used a completely different input/output pattern than the stock hardware — and the PI didn't want the commercial unit damaged, so this had to be non-destructive reverse engineering with no CAD or engineering drawings to start from.</p>
-            <p>The hardest part was mounting the motor driver securely. Without a way to see the true hole pattern on the commercial housing, earlier mounting attempts left the encoder reader misaligned. I ended up projecting the part to a larger scale with a shadow-casting rig, then measured the hole coordinates on a lathe to recover the pattern precisely enough to design a proper adaptor — about two weeks of work.</p>
-            <p>Along the way, the PLA I was printing with deformed and melted from motor heat, which sent me back to respec the printer materials before continuing.</p>
-            <p class="sub">Media</p>
-            <div class="media-grid">
-              <div class="media-slot"><svg class="icon"><use href="#i-video"></use></svg><span class="slot-type">Video</span><span class="slot-desc">Shadow-casting rig in use</span></div>
-              <div class="media-slot"><svg class="icon"><use href="#i-photo"></use></svg><span class="slot-type">Photo</span><span class="slot-desc">The finished adaptor</span></div>
-              <div class="media-slot"><svg class="icon"><use href="#i-cad"></use></svg><span class="slot-type">CAD</span><span class="slot-desc">Adaptor design</span></div>
-              <div class="media-slot"><svg class="icon"><use href="#i-photo"></use></svg><span class="slot-type">Photo</span><span class="slot-desc">Melted PLA failure</span></div>
+      </div>
+
+      <!-- ============ GENERATION 1: REVERSE-ENGINEERED CONVERSION ============ -->
+      <details class="gen-fold">
+        <summary class="gen-summary">
+          <div class="gen-cover">
+            <div class="gen-cover-ribbon-col">
+              <div class="gen-cover-ribbon-top">
+                <div class="gen-cover-mark">Mark I</div>
+                <div class="gen-cover-mark-sub">The Reverse-Engineered Conversion</div>
+              </div>
+              <div class="gen-cover-photo-zone">
+                <img class="gen-cover-photo" src="images/gen1-cutout.png" alt="Oscar wearing the Generation One hip exoskeleton, converted from a commercial unit, in the Metamobility Lab">
+              </div>
+            </div>
+            <div class="gen-cover-content-col">
+              <div>
+                <div class="gen-cover-bullets-label">What I did</div>
+                <ul class="gen-cover-bullets">
+                  <li>Reverse-engineered a commercial exoskeleton by hand — no CAD, no manufacturer drawings</li>
+                  <li>Designed a custom motor-mount adaptor from scratch</li>
+                  <li>Converted the device to run our own motor and Jetson</li>
+                  <li>Recorded this lab's first-ever measurable metabolic benefit</li>
+                </ul>
+              </div>
+              <div class="gen-cover-drawing-slot"><svg class="icon"><use href="#i-cad"></use></svg><span>Engineering drawing — coming soon</span></div>
+              <div class="gen-cover-hint"><svg><use href="#i-chevron"></use></svg>Read the full build</div>
+            </div>
+          </div>
+        </summary>
+        <div class="gen-fold-body">
+          <div class="phase">
+            <div class="phase-head"><span class="phase-num">I</span><h4>Feasibility — Commercial Teardown &amp; Motor Conversion</h4></div>
+            <div class="phase-body">
+              <p>Our PI wanted to benchmark a commercial device against the lab's own past-student designs. I disassembled the commercial unit and converted it to accept our motor and Jetson, which used a completely different input/output pattern than the stock hardware — and the PI didn't want the commercial unit damaged, so this had to be non-destructive reverse engineering with no CAD or engineering drawings to start from.</p>
+              <p>The hardest part was mounting the motor driver securely. Without a way to see the true hole pattern on the commercial housing, earlier mounting attempts left the encoder reader misaligned. I ended up projecting the part to a larger scale with a shadow-casting rig, then measured the hole coordinates on a lathe to recover the pattern precisely enough to design a proper adaptor — about two weeks of work.</p>
+              <p>Along the way, the PLA I was printing with deformed and melted from motor heat, which sent me back to respec the printer materials before continuing.</p>
+              <p class="sub">Media</p>
+              <div class="media-grid">
+                <div class="media-slot"><svg class="icon"><use href="#i-video"></use></svg><span class="slot-type">Video</span><span class="slot-desc">Shadow-casting rig in use</span></div>
+                <div class="media-slot"><svg class="icon"><use href="#i-photo"></use></svg><span class="slot-type">Photo</span><span class="slot-desc">The finished adaptor</span></div>
+                <div class="media-slot"><svg class="icon"><use href="#i-cad"></use></svg><span class="slot-type">CAD</span><span class="slot-desc">Adaptor design</span></div>
+                <div class="media-slot"><svg class="icon"><use href="#i-photo"></use></svg><span class="slot-type">Photo</span><span class="slot-desc">Melted PLA failure</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="phase">
+            <div class="phase-head"><span class="phase-num">II</span><h4>First Validation</h4></div>
+            <div class="phase-body">
+              <p>Metabolic testing on the converted device showed a 1% reduction versus no exoskeleton — a single subject, but the first measurable metabolic benefit this lab had produced. The past student's device hadn't shown one. That result was enough for our PI to fully commit to a ground-up reverse-engineering of the device.</p>
+            </div>
+          </div>
+
+          <div class="phase">
+            <div class="phase-head"><span class="phase-num">III</span><h4>Full Reverse-Engineered Device</h4></div>
+            <div class="phase-body">
+              <p>I reverse-engineered the complete commercial device — my CAD ended up visually near-identical to the original, built entirely from measurement and observation since no manufacturer drawings existed to start from. Our 3D printer was too small for the full-scale parts, so I redesigned around that constraint while preserving the structure, keeping everything manufacturable in-house.</p>
+              <p class="sub">Hinge failures</p>
+              <p>The abduction/adduction hinge was too weak for the loads passing through it. I tried several mechanical hinge designs; all of them broke under load, which pushed a custom hinge onto the roadmap for a future iteration.</p>
+              <p class="sub">The pelvis interface</p>
+              <p>At high torque, the motor rocked forward and backward. My first hypothesis was the pelvis interface — I iterated through several rough geometries, testing fit directly on people to see where the gaps were. Eventually I took a cue from Georgia Tech's device design: using surfacing to generate a generic hip profile, then building the pelvis interface as an offset of that profile. Fit improved significantly, though rocking itself wasn't solved yet — that's Generation Two, next.</p>
+              <p class="sub">Media</p>
+              <div class="media-grid">
+                <div class="media-slot"><svg class="icon"><use href="#i-cad"></use></svg><span class="slot-type">CAD</span><span class="slot-desc">Device vs. commercial, side by side</span></div>
+                <div class="media-slot"><svg class="icon"><use href="#i-video"></use></svg><span class="slot-type">Video</span><span class="slot-desc">Hinges breaking under load</span></div>
+                <div class="media-slot"><svg class="icon"><use href="#i-photo"></use></svg><span class="slot-type">Photo</span><span class="slot-desc">Pelvis interface iterations</span></div>
+              </div>
+            </div>
+          </div>
+
+          <p class="credit-note">Ends this generation at 3.1kg, down from the prior student's 4.2kg (both with battery).</p>
+        </div>
+      </details>
+
+      <!-- ============ GENERATION 2: CALF-INTERFACE REDESIGN ============ -->
+      <details class="gen-fold">
+        <summary class="gen-summary">
+          <div class="gen-cover reverse">
+            <div class="gen-cover-ribbon-col">
+              <div class="gen-cover-ribbon-top">
+                <div class="gen-cover-mark">Mark II</div>
+                <div class="gen-cover-mark-sub">The Calf-Interface Redesign</div>
+              </div>
+              <div class="gen-cover-photo-zone">
+                <img class="gen-cover-photo" src="images/gen2-cutout.png" alt="Oscar wearing the Generation Two hip exoskeleton, showing the redesigned calf-like thigh interface">
+              </div>
+            </div>
+            <div class="gen-cover-content-col">
+              <div>
+                <div class="gen-cover-bullets-label">What I did</div>
+                <ul class="gen-cover-bullets">
+                  <li>Diagnosed motor rocking down to the thigh interface, not the pelvis</li>
+                  <li>Redesigned it into a calf-like structure</li>
+                  <li>Eliminated rocking entirely, up to 17 N&middot;m</li>
+                  <li>Accepted a ~1kg weight trade-off for structural stability</li>
+                </ul>
+              </div>
+              <div class="gen-cover-drawing-slot"><svg class="icon"><use href="#i-cad"></use></svg><span>Engineering drawing — coming soon</span></div>
+              <div class="gen-cover-hint"><svg><use href="#i-chevron"></use></svg>Read the full build</div>
+            </div>
+          </div>
+        </summary>
+        <div class="gen-fold-body">
+          <div class="phase">
+            <div class="phase-head"><span class="phase-num">IV</span><h4>The Motor Rocking Problem</h4></div>
+            <div class="phase-body">
+              <p>Even with the improved pelvis interface from Generation One, the device still rocked forward and backward under high torque. The cause turned out to be the thigh interface, not the pelvis. Redesigning it into a calf-like structure eliminated the rocking entirely, up to 17 N&middot;m — a clear before/after, not just a marginal improvement. This is the strongest documentation in the whole project: two side-by-side videos showing the calf design against the old one under identical load.</p>
+              <p class="sub">Media</p>
+              <div class="media-grid">
+                <div class="media-slot"><svg class="icon"><use href="#i-video"></use></svg><span class="slot-type">Video</span><span class="slot-desc">Calf vs. old design, rocking compared (1 of 2)</span></div>
+                <div class="media-slot"><svg class="icon"><use href="#i-video"></use></svg><span class="slot-type">Video</span><span class="slot-desc">Calf vs. old design, rocking compared (2 of 2)</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="phase">
+            <div class="phase-head"><span class="phase-num">V</span><h4>The Weight Trade-off</h4></div>
+            <div class="phase-body">
+              <p>Solving the rocking issue brought the weight back up from 3.1kg to around 4kg — which on paper works against the point of a lightweight design. I'm treating that honestly as a trade-off rather than a regression: a fully weight-optimized structure couldn't survive the loads it needed to, so the extra mass buys the structural integrity the device actually needs to function.</p>
             </div>
           </div>
         </div>
+      </details>
 
-        <div class="phase">
-          <div class="phase-head"><span class="phase-num">II</span><h4>First Validation</h4></div>
-          <div class="phase-body">
-            <p>Metabolic testing on the converted device showed a 1% reduction versus no exoskeleton — a single subject, but the first measurable metabolic benefit this lab had produced. The past student's device hadn't shown one. That result was enough for our PI to fully commit to a ground-up reverse-engineering of the device.</p>
+      <!-- ============ GENERATION 3: GENERALIZED INTERFACE ============ -->
+      <details class="gen-fold">
+        <summary class="gen-summary">
+          <div class="gen-cover">
+            <div class="gen-cover-ribbon-col">
+              <div class="gen-cover-ribbon-top">
+                <div class="gen-cover-mark">Mark III</div>
+                <div class="gen-cover-mark-sub">The Generalized Interface</div>
+              </div>
+              <div class="gen-cover-photo-zone">
+                <img class="gen-cover-photo" src="images/gen3-cutout.png" alt="Oscar wearing the Generation Three hip exoskeleton, showing the generalized straight-bar interface">
+              </div>
+            </div>
+            <div class="gen-cover-content-col">
+              <div>
+                <div class="gen-cover-bullets-label">What I did</div>
+                <ul class="gen-cover-bullets">
+                  <li>Collaborated with a PhD student to generalize the interface</li>
+                  <li>Built a pelvis interface that fits a range of body sizes</li>
+                  <li>Added a straight-bar alternative configuration</li>
+                  <li>Ran a pilot metabolic test across three subjects</li>
+                </ul>
+              </div>
+              <div class="gen-cover-drawing-slot"><svg class="icon"><use href="#i-cad"></use></svg><span>Engineering drawing — coming soon</span></div>
+              <div class="gen-cover-hint"><svg><use href="#i-chevron"></use></svg>Read the full build</div>
+            </div>
           </div>
-        </div>
-
-        <div class="phase">
-          <div class="phase-head"><span class="phase-num">III</span><h4>Full Reverse-Engineered Device</h4></div>
-          <div class="phase-body">
-            <p>I reverse-engineered the complete commercial device — my CAD ended up visually near-identical to the original. Our 3D printer was too small for the full-scale parts, so I redesigned around that constraint while preserving the structure, keeping everything manufacturable in-house.</p>
-            <p class="sub">Hinge failures</p>
-            <p>The abduction/adduction hinge was too weak for the loads passing through it. I tried several mechanical hinge designs; all of them broke under load, which pushed a custom hinge onto the roadmap for a future iteration.</p>
-            <p class="sub">The motor rocking problem</p>
-            <p>At high torque, the motor rocked forward and backward. My first hypothesis was the pelvis interface — I iterated through several rough geometries, testing fit directly on people to see where the gaps were. Eventually I took a cue from Georgia Tech's device design: using surfacing to generate a generic hip profile, then building the pelvis interface as an offset of that profile. Fit improved significantly.</p>
-            <p>Rocking persisted even with the pelvis fixed, which pointed to the thigh interface instead. Redesigning it into a calf-like structure eliminated rocking up to 17 N·m — a clear before/after, not just a marginal improvement.</p>
-            <p class="sub">Media</p>
-            <div class="media-grid">
-              <div class="media-slot"><svg class="icon"><use href="#i-cad"></use></svg><span class="slot-type">CAD</span><span class="slot-desc">Device vs. commercial, side by side</span></div>
-              <div class="media-slot"><svg class="icon"><use href="#i-video"></use></svg><span class="slot-type">Video</span><span class="slot-desc">Hinges breaking under load</span></div>
-              <div class="media-slot"><svg class="icon"><use href="#i-photo"></use></svg><span class="slot-type">Photo</span><span class="slot-desc">Pelvis interface iterations</span></div>
-              <div class="media-slot"><svg class="icon"><use href="#i-video"></use></svg><span class="slot-type">Video</span><span class="slot-desc">Calf vs. old design, rocking compared</span></div>
+        </summary>
+        <div class="gen-fold-body">
+          <div class="phase">
+            <div class="phase-head"><span class="phase-num">VI</span><h4>Generalizing With a PhD Collaborator</h4></div>
+            <div class="phase-body">
+              <p>Working with a PhD student in the lab, the interface was generalized past a single fitted design: the pelvis interface now fits a range of body sizes, and a straight-bar version was added as an alternate configuration. A pilot metabolic test across three subjects showed a meaningful reduction in effort for all three — early-stage pilot testing, not a completed study, so I'm stating that qualitatively rather than citing exact numbers here.</p>
+              <p class="sub">Media</p>
+              <div class="media-grid">
+                <div class="media-slot"><svg class="icon"><use href="#i-cad"></use></svg><span class="slot-type">CAD</span><span class="slot-desc">Generalized, multi-size interface</span></div>
+              </div>
             </div>
           </div>
         </div>
+      </details>
 
-        <div class="phase">
-          <div class="phase-head"><span class="phase-num">IV</span><h4>Trade-off &amp; Generalization</h4></div>
-          <div class="phase-body">
-            <p>Solving the rocking issue brought the weight back up from 3.1kg to around 4kg — which on paper works against the point of a lightweight design. I'm treating that honestly as a trade-off rather than a regression: a fully weight-optimized structure couldn't survive the loads it needed to, so the extra mass buys the structural integrity the device actually needs to function.</p>
-            <p>From there, I worked with a PhD student to generalize the interface — a pelvis that fits multiple body sizes, alongside a straight-bar design — and ran a pilot metabolic test across three subjects, with a positive reduction across all of them.</p>
-            <p class="sub">Media</p>
-            <div class="media-grid">
-              <div class="media-slot"><svg class="icon"><use href="#i-cad"></use></svg><span class="slot-type">CAD</span><span class="slot-desc">Generalized, multi-size interface</span></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="support-module">
+      <div class="flagship" style="border-top:none; margin-top:1.8rem;">
+        <div class="support-module" style="margin-top:0; border-top:none; padding-top:0;">
           <h4>Also on this project</h4>
           <div class="support-grid">
             <ul class="support-list">

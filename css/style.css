@@ -368,5 +368,158 @@ footer.site-foot{ padding:2.5rem 0 3.5rem; }
     var(--blush-2);
 }
 
+/* ============ HARDWARE GENERATION COVERS (v4 — seamless ribbon, framed) ============
+   Each of the 3 big hardware generations gets a Codex-page-style <summary>:
+   a solid maroon ribbon, framed with a parchment margin on the top/bottom/
+   outer edge (never flush to the card edge), alternates left/right per
+   generation (.gen-cover.reverse flips it). The cutout photo fills the
+   FULL ribbon height (not split into a text zone + photo zone) so there is
+   no hard seam — the "MARK n" title is an absolutely-positioned overlay on
+   a soft gradient scrim at the top, floating over the photo the way a
+   Codex logo box floats over the character art beneath it. The photo is
+   also deliberately wider than the ribbon so it bleeds out past the inner
+   edge. A "what I did" bullet list, a reserved engineering-drawing slot,
+   and a prominent bordered "read the full build" button sit in the
+   parchment column beside it. Clicking anywhere on the cover unfolds the
+   phase-by-phase write-up for that generation. */
+.gen-fold{ border:1px solid var(--line-strong); background:var(--parchment-2); margin-top:1.8rem; overflow:hidden; }
+.gen-fold:first-of-type{ margin-top:2.2rem; }
+.gen-summary{ cursor:pointer; list-style:none; display:block; }
+.gen-summary::-webkit-details-marker{ display:none; }
+.gen-summary::marker{ content:''; }
+.gen-summary:focus-visible .gen-cover{ outline:2px solid var(--maroon-bright); outline-offset:-2px; }
+
+/* overflow:hidden here — not just on .gen-fold — so the photo's downward
+   shift (see .gen-cover-photo below) is clipped at the bottom of the
+   COVER itself (the "unextended block") and never bleeds into the
+   phase-by-phase write-up once a fold is opened. Safe for the horizontal
+   bleed too: nothing ever needs to render past this row's own width, only
+   across the boundary between its two child columns. */
+.gen-cover{ display:flex; flex-wrap:wrap; align-items:stretch; overflow:hidden; }
+
+.gen-cover-ribbon-col{
+  position:relative; z-index:1; order:1; flex:0 0 42%; min-width:260px;
+  min-height:clamp(640px,58vw,820px);
+  margin: 0 0 0 clamp(1.2rem,3vw,1.8rem);
+  background:transparent;
+}
+.gen-cover.reverse .gen-cover-ribbon-col{
+  order:2;
+  margin: 0 clamp(1.2rem,3vw,1.8rem) 0 0;
+}
+.gen-cover.reverse .gen-cover-content-col{ order:1; }
+
+/* the actual maroon ribbon: a narrower vertical band inset within the
+   ribbon column, running the column's full height (top and bottom of the
+   ribbon column itself, not just the middle — no margin left the ribbon
+   short there) — flush against the edge facing the content column (no
+   gap between the ribbon and the bullet text) and inset only on the
+   outer edge, so the column still reads as a narrower object without
+   leaving a parchment strip next to the text. */
+.gen-cover-ribbon-col::before{
+  content:''; position:absolute; z-index:0; top:0; bottom:0;
+  left:16%; right:0;
+  background:var(--maroon);
+}
+.gen-cover.reverse .gen-cover-ribbon-col::before{
+  left:0; right:16%;
+}
+
+/* photo zone spans the full column (wider than the ribbon band itself) so
+   the cutout can bleed past the band on both sides */
+.gen-cover-photo-zone{ position:absolute; inset:0; z-index:1; }
+.gen-cover-photo{
+  position:absolute; left:50%; top:0; height:100%;
+  width:150%; max-width:none;
+  object-fit:contain; object-position:bottom center; z-index:2;
+  /* shifted down + toward the column's outer edge so the hardware itself
+     (not headroom above it) lands in the ribbon's visible band, and the
+     top of the ribbon stays clear maroon behind the title — no scrim
+     needed. Overflow past the bottom is cropped by .gen-fold. */
+  transform:translate(calc(-50% - clamp(20px,5vw,55px)), clamp(210px,22vw,300px));
+  filter:drop-shadow(0 10px 18px rgba(20,10,8,.4));
+}
+.gen-cover.reverse .gen-cover-photo{
+  transform:translate(calc(-50% + clamp(20px,5vw,55px)), clamp(210px,22vw,300px));
+}
+
+/* title sits directly on the solid ribbon band — no photo behind it once
+   the photo is shifted down, so no scrim/gradient needed */
+.gen-cover-ribbon-top{
+  position:absolute; z-index:3; top:0; left:16%; right:0;
+  display:flex; flex-direction:column; align-items:center; text-align:center;
+  padding:clamp(1.6rem,3.4vw,2.1rem) .7rem 1.1rem;
+}
+.gen-cover.reverse .gen-cover-ribbon-top{ left:0; right:16%; }
+.gen-cover-mark{
+  font-family:var(--font-display); font-weight:700; font-size:clamp(2.2rem,5vw,3.3rem);
+  color:#fff; letter-spacing:.03em; text-shadow:0 2px 12px rgba(0,0,0,.55);
+}
+.gen-cover-mark-sub{
+  font-family:var(--font-mono); font-size:clamp(.98rem,2.3vw,1.15rem); letter-spacing:.04em; color:rgba(247,241,225,.92);
+  margin-top:.6rem; max-width:24ch; line-height:1.4; text-shadow:0 1px 8px rgba(0,0,0,.5);
+}
+
+.gen-cover-content-col{
+  flex:1 1 320px; order:2; background:var(--parchment-2);
+  padding:clamp(1.8rem,3.4vw,2.6rem) clamp(1.8rem,3.4vw,2.6rem);
+  display:flex; flex-direction:column; gap:1.5rem;
+}
+.gen-cover-bullets-label{
+  font-family:var(--font-mono); font-size:.7rem; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--maroon);
+}
+.gen-cover-bullets{ list-style:none; padding:0; margin:.6rem 0 0; display:flex; flex-direction:column; gap:.7rem; }
+.gen-cover-bullets li{
+  font-family:var(--font-body); font-size:1rem; line-height:1.5; color:var(--ink);
+  padding-left:1.4rem; position:relative;
+}
+.gen-cover-bullets li::before{
+  content:'▸'; position:absolute; left:0; top:.02em; color:var(--maroon); font-weight:700;
+}
+.gen-cover-drawing-slot{
+  border:1px dashed var(--line-strong);
+  background:
+    repeating-linear-gradient(135deg, rgba(122,36,29,0.05) 0 10px, transparent 10px 20px),
+    var(--parchment-3);
+  min-height:220px; flex:1 1 auto;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.5rem;
+  color:var(--ink-faint);
+}
+.gen-cover-drawing-slot svg{ width:1.8rem; height:1.8rem; }
+.gen-cover-drawing-slot span{ font-family:var(--font-mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; }
+
+.gen-cover-hint{
+  align-self:flex-start;
+  display:inline-flex; align-items:center; gap:.55rem;
+  font-family:var(--font-mono); font-size:.82rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--maroon); border:1.5px solid var(--maroon); padding:.7rem 1.3rem;
+  transition:background .2s ease, color .2s ease;
+}
+.gen-cover-hint svg{ width:.9rem; height:.9rem; transition:transform .25s ease; }
+.gen-summary:hover .gen-cover-hint, .gen-fold[open] > .gen-summary .gen-cover-hint{
+  background:var(--maroon); color:#fff;
+}
+.gen-fold[open] .gen-cover-hint svg{ transform:rotate(90deg); }
+
+@media (max-width:640px){
+  /* stacked layout: ribbon-col and content-col are separate flex LINES,
+     not side-by-side columns, so .gen-cover's own overflow:hidden clips
+     at the bottom of BOTH combined, not at the ribbon's own bottom edge —
+     without its own overflow:hidden here, the down-shifted photo bleeds
+     past the ribbon box into the bullet text below it. There's also no
+     side-by-side column left to bleed into horizontally on mobile, so
+     clipping both axes at the ribbon's own box is correct here. */
+  .gen-cover-ribbon-col, .gen-cover.reverse .gen-cover-ribbon-col{
+    order:1; flex:1 1 100%; min-height:460px;
+    margin: 0 clamp(1rem,4vw,1.4rem) 0 clamp(1rem,4vw,1.4rem);
+    overflow:hidden;
+  }
+  .gen-cover-content-col, .gen-cover.reverse .gen-cover-content-col{ order:2; flex:1 1 100%; }
+}
+
+.gen-fold-body{ padding:clamp(1.6rem,4vw,2.4rem); border-top:1px dashed var(--line-strong); }
+.gen-fold-body .phase:first-child{ padding-top:0; border-top:none; }
+
 /* ============ SITE INTRO STRIP (used on sub-pages under the page header) ============ */
 .record-label{ font-family:var(--font-mono); font-size:.78rem; letter-spacing:.16em; text-transform:uppercase; color:var(--maroon); }
