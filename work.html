@@ -83,6 +83,8 @@
 
         <p class="flagship-thesis">The question underneath all three generations below: could a lighter, lower-torque exoskeleton design deliver more metabolic benefit than a heavier, higher-torque one?</p>
 
+        <p class="flagship-pattern">Most of what follows has the same shape: a first guess that turned out wrong, and the real cause underneath it. Struck-through items below are the wrong guesses — click one to jump to that part of the story.</p>
+
         <p class="context-line">Before touching hardware: two months cleaning up an existing PhD student's control codebase — unglamorous, undocumented work, but it's how I got embedded in the project in the first place.</p>
 
         <div class="stat-row">
@@ -119,17 +121,27 @@
               </div>
             </div>
             <div class="gen-cover-content-col">
-              <div>
+              <div class="gen-cover-copy">
                 <h4 class="gen-cover-purpose">Is Lightweight Actually Better?</h4>
-                <div class="gen-cover-bullets-label">What I did</div>
-                <ul class="gen-cover-bullets">
-                  <li>Reverse-engineered a 2.5kg commercial exoskeleton by hand to test whether lighter, lower-torque could beat heavier, higher-torque on metabolic benefit</li>
-                  <li>Traced a flickering encoder reading past a plausible-but-wrong fix to its real cause — a missing mounting hole pattern — solved with a custom shadow-casting rig</li>
-                  <li>Investigated three simultaneous suspects behind motor rocking — pelvis mount, thigh contact, and hinge — escalating through three hinge designs before deciding to design one from scratch</li>
-                  <li>Guided an undergrad's FEA study proving torsional load, not plane stress, was driving the failures, and used it to reshape the thigh interface</li>
-                </ul>
+                <div class="gen-cover-manifest">
+                  <div class="manifest-group resolved">
+                    <div class="manifest-label">What I did</div>
+                    <ul class="manifest-list">
+                      <li class="done"><span class="manifest-check"></span>Reverse-engineered and converted a 2.5kg commercial exoskeleton to run our own motor and electronics</li>
+                      <li class="done"><span class="manifest-check"></span><a class="manifest-link" href="#mark1-encoder-fix"><span class="ruled-out">Suspected overheating PLA</span> &rarr; real cause was an unmountable driver board, fixed with a custom shadow-casting rig</a></li>
+                      <li class="done"><span class="manifest-check"></span><a class="manifest-link" href="#mark1-hinge-fea"><span class="ruled-out">Assumed it was just hinge strength</span> &rarr; FEA proved torsional load from the thigh interface was the real driver, and reshaped it accordingly</a></li>
+                      <li class="done"><span class="manifest-check"></span>Recorded this lab's first-ever measurable metabolic benefit</li>
+                    </ul>
+                  </div>
+                  <div class="manifest-group open">
+                    <div class="manifest-label">Carried Forward</div>
+                    <div class="gen-cover-drawing-float"><img src="images/gen1-drawing.png" alt="Engineering drawing of the Mark I motor and actuator assembly"></div>
+                    <ul class="manifest-list">
+                      <li class="pending"><span class="manifest-check"></span><span class="manifest-item-text">Motor rocking under load — three hinge designs failed in sequence<span class="manifest-carry">→ Mark II</span></span></li>
+                    </ul>
+                  </div>
+                </div>
               </div>
-              <div class="gen-cover-drawing-slot"><svg class="icon"><use href="#i-cad"></use></svg><span>Engineering drawing — coming soon</span></div>
               <div class="gen-cover-hint"><svg><use href="#i-chevron"></use></svg>Read the full build</div>
             </div>
           </div>
@@ -140,7 +152,7 @@
             <div class="phase-body">
               <p>Papers using the Samsung GEM exoskeleton suggested a lighter, lower-torque design could deliver more metabolic benefit than a heavier, higher-torque one. Hypershell's commercial device weighs just 2.5kg without batteries — light enough that testing this hypothesis, before committing the lab to a full from-scratch build, seemed worth doing first.</p>
               <p>I designed an adaptor to mount our own motor and a custom PCB (mounted on top of the Jetson) onto the Hypershell structure, while reverse-engineering the device itself from the physical object — no manufacturer CAD or drawings existed, and Hypershell's thigh interface has an unusually complex curvature that made the reconstruction hard.</p>
-              <p class="sub">Chasing a flickering reading</p>
+              <p class="sub jump-target" id="mark1-encoder-fix">Chasing a flickering reading</p>
               <p>During testing, the motor encoder reading was intermittent — good sometimes, bad other times. My first hypothesis was the mounting material: the lab was using PLA at the time, which deforms under motor heat, so I respecified it to PAHT-CF. The reading was still bad. The real cause turned out to be that the driver board couldn't be bolted down without matching the commercial unit's own hole pattern, which no drawings existed for either — solved with a custom shadow-casting rig, projecting the part at a larger scale to measure the hole coordinates on a lathe. About two weeks of work in total.</p>
               <p>With a reliable reading, I ran a metabolic test on the converted device: a 1% reduction versus no exoskeleton, single subject — modest, but the first measurable metabolic benefit this lab had produced. The past student's device hadn't shown one. That result was enough for our PI to commit to a full reverse-engineering of the device.</p>
               <p class="sub">Media</p>
@@ -162,7 +174,7 @@
               <p>Hypershell's own pelvis part sits on top of the glutes rather than the lower back, which I suspected made it inherently less secure. I tried several back-plate drafts — deliberately cheap, fit-check only, never load-tested for torque — but none fit perfectly. This thread stayed open through the end of Mark I.</p>
               <p class="sub">The thigh interface</p>
               <p>I proposed adding high-thigh straps for more contact area, reasoning more contact would reduce rocking. My PI disagreed — more strapping is less comfortable and widens the gait — and while I wasn't fully convinced, I dropped this thread rather than resolve the disagreement at the time.</p>
-              <p class="sub">Hinge failures</p>
+              <p class="sub jump-target" id="mark1-hinge-fea">Hinge failures</p>
               <p>The hinge looked like the fastest fix, so it got most of my attention. The door hinge already in place had gaps both between the pin and leaf and leaf-to-leaf. A quick plastic hinge sourced off Amazon didn't endure even 12 N&middot;m. That failure pointed me toward a new hypothesis — that the thigh interface's unusual curvature was driving outsized torsional force into the hinge — and I guided an undergrad through an FEA study to test it. His analysis, based on principal stress theory (&sigma;<sub>1,2</sub> = (&sigma;<sub>x</sub>+&sigma;<sub>y</sub>)/2 &plusmn; &radic;(((&sigma;<sub>x</sub>&minus;&sigma;<sub>y</sub>)/2)&sup2; + &tau;<sub>xy</sub>&sup2;)), showed that because the shear/torsional term is squared, torsional loading dominates far more than plane stress — so the fix was geometric: move the curved part of the thigh interface further up the leg. I adopted the change.</p>
               <p>Meanwhile, a McMaster metal hinge held to 12 N&middot;m but rocked worse than the plastic one, from the same leaf/pin gap problem. I modified it myself — dowel pins, redrilled holes, shims — which fixed the wobble and pushed it to 15 N&middot;m, where it broke. Three off-the-shelf hinges, three separate workarounds, still failing: that's what convinced me to design a custom hinge from scratch instead.</p>
               <p class="sub">Media</p>
@@ -194,17 +206,28 @@
               </div>
             </div>
             <div class="gen-cover-content-col">
-              <div>
+              <div class="gen-cover-copy">
                 <h4 class="gen-cover-purpose">Stop Chasing Fit-Everyone. Build One That Works.</h4>
-                <div class="gen-cover-bullets-label">What I did</div>
-                <ul class="gen-cover-bullets">
-                  <li>Abandoned "fits everyone" to focus entirely on one working system — surfaced my own body in SolidWorks to build a Georgia-Tech-inspired, ergonomic pelvis interface</li>
-                  <li>Eliminated hinge wobble at its source by building the pelvis interface with no separate ABAD hinge at all</li>
-                  <li>Overrode my PI's comfort objection to test a tightly-fitted thigh cuff, reasoning through why rocking amplifies farther from the motor</li>
-                  <li>Turned a requested quick-release motor connector into a custom shoulder-bolt hinge — eliminating rocking entirely, up to 17 N&middot;m</li>
-                </ul>
+                <div class="gen-cover-manifest">
+                  <div class="manifest-group resolved">
+                    <div class="manifest-label">What I did</div>
+                    <ul class="manifest-list">
+                      <li class="done"><span class="manifest-check"></span>Abandoned "fits everyone" to focus entirely on one working system — surfaced my own body in SolidWorks to build a Georgia-Tech-inspired, ergonomic pelvis interface</li>
+                      <li class="done"><span class="manifest-check"></span>Eliminated hinge wobble at its source by building the pelvis interface with no separate ABAD hinge at all</li>
+                      <li class="done"><span class="manifest-check"></span>Overrode my PI's comfort objection to test a tightly-fitted thigh cuff, reasoning through why rocking amplifies farther from the motor</li>
+                      <li class="done"><span class="manifest-check"></span>Turned a requested quick-release motor connector into a custom shoulder-bolt hinge — eliminating rocking entirely, up to 17 N&middot;m</li>
+                    </ul>
+                  </div>
+                  <div class="manifest-group open">
+                    <div class="manifest-label">Carried Forward</div>
+                    <div class="gen-cover-drawing-float left"><img src="images/gen2-drawing.png" alt="Engineering drawing of the Mark II pelvis interface and custom hinge"></div>
+                    <ul class="manifest-list">
+                      <li class="pending"><span class="manifest-check"></span><span class="manifest-item-text">Fits one body only — mine — not yet generalized<span class="manifest-carry">→ Mark III</span></span></li>
+                      <li class="pending"><span class="manifest-check"></span><span class="manifest-item-text">Motor doesn't sit flush on the non-flat pelvis surface<span class="manifest-carry">→ Mark III</span></span></li>
+                    </ul>
+                  </div>
+                </div>
               </div>
-              <div class="gen-cover-drawing-slot"><svg class="icon"><use href="#i-cad"></use></svg><span>Engineering drawing — coming soon</span></div>
               <div class="gen-cover-hint"><svg><use href="#i-chevron"></use></svg>Read the full build</div>
             </div>
           </div>
@@ -263,17 +286,27 @@
               </div>
             </div>
             <div class="gen-cover-content-col">
-              <div>
+              <div class="gen-cover-copy">
                 <h4 class="gen-cover-purpose">Mature Enough to Ask a Harder Question</h4>
-                <div class="gen-cover-bullets-label">What I did</div>
-                <ul class="gen-cover-bullets">
-                  <li>Generalized the pelvis interface to a movable design fitting a range of body sizes across the lab, after handing hardware leadership to a PhD student</li>
-                  <li>Solved a resurfaced Mark II problem — the motor digging into the pelvis bone — by offsetting the motor for clearance</li>
-                  <li>Replaced the ABAD hinge entirely with a flexing carbon-fiber sheet, closing out two generations of hinge failures for good</li>
-                  <li>Ran a 3-subject pilot metabolic test at ~10 N&middot;m that validated the project's founding hypothesis</li>
-                </ul>
+                <div class="gen-cover-manifest">
+                  <div class="manifest-group resolved">
+                    <div class="manifest-label">What I did</div>
+                    <ul class="manifest-list">
+                      <li class="done"><span class="manifest-check"></span>Generalized the pelvis interface to a movable design fitting a range of body sizes across the lab, after handing hardware leadership to a PhD student</li>
+                      <li class="done"><span class="manifest-check"></span>Solved a resurfaced Mark II problem — the motor digging into the pelvis bone — by offsetting the motor for clearance</li>
+                      <li class="done"><span class="manifest-check"></span>Replaced the ABAD hinge entirely with a flexing carbon-fiber sheet, closing out two generations of hinge failures for good</li>
+                      <li class="done"><span class="manifest-check"></span>Ran a 3-subject pilot metabolic test at ~10 N&middot;m that validated the project's founding hypothesis</li>
+                    </ul>
+                  </div>
+                  <div class="manifest-group open">
+                    <div class="manifest-label">Moving Forward</div>
+                    <div class="gen-cover-drawing-float"><img src="images/gen3-drawing.png" alt="Engineering drawing of the Mark III generalized pelvis interface and dual-actuator harness"></div>
+                    <ul class="manifest-list">
+                      <li class="pending"><span class="manifest-check"></span><span class="manifest-item-text">The calf cuff transmits torque best, the straight bar weighs least — testing whether a partial cuff, just the third closest to the motor, can hit the sweet spot between them<span class="manifest-carry">→ Next study</span></span></li>
+                    </ul>
+                  </div>
+                </div>
               </div>
-              <div class="gen-cover-drawing-slot"><svg class="icon"><use href="#i-cad"></use></svg><span>Engineering drawing — coming soon</span></div>
               <div class="gen-cover-hint"><svg><use href="#i-chevron"></use></svg>Read the full build</div>
             </div>
           </div>

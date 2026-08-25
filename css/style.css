@@ -262,6 +262,14 @@ blockquote.thesis{
   font-size:clamp(1.05rem,2vw,1.22rem); max-width:64ch; line-height:1.5; margin:0 0 1.7rem 0;
 }
 .context-line{ font-style:italic; color:var(--ink-faint); font-size:.92rem; border-left:2px solid var(--line-strong); padding-left:.9rem; margin:0 0 2rem 0; }
+/* names the wrong-guess-then-real-cause pattern once, up top, so the reader
+   is primed to notice it in the cards below rather than needing every card
+   to spell it out. Deliberately quieter than .flagship-thesis -- it's a
+   reading hint, not a second claim competing with the research question. */
+.flagship-pattern{
+  font-family:var(--font-mono); font-size:.78rem; color:var(--ink-faint);
+  letter-spacing:.01em; max-width:60ch; line-height:1.6; margin:-.9rem 0 1.7rem 0;
+}
 
 .phase{ padding:2rem 0; border-top:1px solid var(--line); }
 .phase-head{ display:flex; align-items:center; gap:1rem; margin-bottom:.9rem; }
@@ -509,6 +517,10 @@ footer.site-foot{ padding:2.5rem 0 3.5rem; }
 }
 
 .gen-cover-content-col{
+  position:relative; z-index:2; /* the ribbon photo (z-index:1 on its
+    positioned ancestor) can bleed wide enough at narrow widths to
+    physically overlap this column -- without its own stacking context
+    above that, the photo would paint over the text instead of behind it. */
   flex:1 1 320px; order:2; background:var(--parchment-2);
   padding:clamp(1.8rem,3.4vw,2.6rem) clamp(1.8rem,3.4vw,2.6rem);
   display:flex; flex-direction:column; gap:1.5rem;
@@ -519,7 +531,7 @@ footer.site-foot{ padding:2.5rem 0 3.5rem; }
    than only a bullet list of actions. */
 .gen-cover-purpose{
   font-family:var(--font-display); font-weight:700;
-  font-size:clamp(1.1rem,2.1vw,1.35rem); line-height:1.28;
+  font-size:clamp(1.4rem,2.65vw,2.15rem); line-height:1.22;
   color:var(--maroon-bright); margin:0 0 1.1rem 0;
 }
 .gen-cover-bullets-label{
@@ -534,17 +546,139 @@ footer.site-foot{ padding:2.5rem 0 3.5rem; }
 .gen-cover-bullets li::before{
   content:'▸'; position:absolute; left:0; top:.02em; color:var(--maroon); font-weight:700;
 }
-.gen-cover-drawing-slot{
-  border:1px dashed var(--line-strong);
+/* ---- manifest checklist: replaces the plain bullet list on the cover card.
+   Two groups — items closed out within this generation ("Resolved") and
+   the one that surfaces as the next generation's whole reason for being
+   ("Carried Forward"), with a small tag pointing at where it gets picked
+   up. Keeps the "problem -> fix -> result -> next problem" thread visible
+   at a glance instead of buried in four same-weight bullets. */
+/* block flow, not flex -- a flex formatting context ignores floats entirely,
+   and the drawing needs to float right with checklist rows narrowing beside
+   it, then returning to full width once past its bottom. overflow:hidden
+   gives this its own block formatting context so it properly encloses the
+   float's height instead of collapsing around it. */
+.gen-cover-manifest{ overflow:hidden; }
+/* own overflow:hidden so a group containing a floated drawing (the float
+   now lives inside the "open" group, after its label, so the label always
+   renders full-width before the float starts) still gets its height
+   properly contained, independent of the outer .gen-cover-manifest's BFC. */
+.manifest-group{ margin-bottom:1.15rem; overflow:hidden; }
+.manifest-group:last-child{ margin-bottom:0; }
+/* size ladder is deliberate: title > label ("What I did" / "Carried
+   Forward") > checkbox item text, so the group labels read as real
+   sub-headers rather than a small caption tag above bigger body text. */
+.manifest-label{
+  font-family:var(--font-mono); font-size:clamp(1.05rem,1.95vw,1.58rem);
+  letter-spacing:.1em; text-transform:uppercase;
+}
+.manifest-group.resolved .manifest-label{ color:var(--maroon); }
+.manifest-group.open .manifest-label{ color:var(--ink-faint); }
+.manifest-list{ list-style:none; margin:.6rem 0 0; padding:0; }
+/* deliberately NOT display:flex -- a flex container (like any box that
+   establishes a new block formatting context) has to avoid a float's
+   margin box for its ENTIRE height, all at once, rather than adapting
+   line-by-line -- so a li beside the drawing float would get squeezed
+   into one narrow lane for its whole height even long after the float's
+   bottom edge had passed, instead of widening back out. Plain block flow
+   with a floated checkbox is what actually gives per-line text reflow. */
+/* hanging indent, not a float, for the checkbox -- Mark II's drawing is
+   float:left (bottom-left placement) same as a floated checkbox would be,
+   and two same-side floats stack next to each other instead of the
+   checkbox sitting at the text's own start. text-indent pulls the first
+   line back into the padding-left gutter (where the inline-block checkbox
+   sits); wrapped lines fall at the padding edge, so it still reads as a
+   normal checklist indent either side of the drawing. */
+/* no hanging indent (padding-left/text-indent) here on purpose -- the
+   checkbox is a plain inline-block sitting directly in front of the item
+   text, inside the same paragraph run, so it travels with the text as one
+   unit through every line the float reshapes -- a hanging indent would
+   only re-apply its pull-back to the first line, leaving the checkbox
+   correctly wrapped but visually detached from how the rest of the block
+   aligns once text passes below the float. */
+.manifest-list li{
+  margin-bottom:.6rem;
+  font-family:var(--font-body); font-size:clamp(1rem,1.72vw,1.42rem); line-height:1.48; color:var(--ink);
+}
+.manifest-list li:last-child{ margin-bottom:0; }
+/* the small engineering-drawing thumbnail, floated into the checklist's
+   flow so text narrows beside it and returns to full width once past its
+   bottom edge, rather than sitting in its own full-width block below. */
+.gen-cover-drawing-float{
+  float:right; clear:right;
+  width:clamp(255px,57%,480px);
+  margin:.15rem 0 .9rem 1.1rem;
+  border:2px solid var(--photo-border);
+  background:var(--parchment-2);
+  padding:.35rem;
+}
+.gen-cover-drawing-float img{ width:100%; height:auto; display:block; }
+/* Mark II specifically sits on the other side (bottom-left, mirrored
+   margin) since its ribbon column is on the right. */
+.gen-cover-drawing-float.left{ float:left; clear:left; margin:.15rem 1.1rem .9rem 0; }
+/* placeholder variant for a generation whose drawing hasn't arrived yet --
+   same small floated footprint as the real thing so the layout doesn't
+   jump once an image replaces it, just icon+text centered instead of img. */
+.gen-cover-drawing-float.placeholder{
+  aspect-ratio:1.9/1;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.4rem;
+  color:var(--ink-faint);
   background:
     repeating-linear-gradient(135deg, rgba(122,36,29,0.05) 0 10px, transparent 10px 20px),
     var(--parchment-3);
-  min-height:220px; flex:1 1 auto;
-  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.5rem;
+}
+.gen-cover-drawing-float.placeholder svg{ width:1.4rem; height:1.4rem; }
+.gen-cover-drawing-float.placeholder span{
+  font-family:var(--font-mono); font-size:.58rem; letter-spacing:.1em; text-transform:uppercase; text-align:center;
+}
+.manifest-check{
+  display:inline-block; width:15px; height:15px; margin-right:.5em;
+  vertical-align:text-top; position:relative; top:.15em;
+  border:1.5px solid var(--maroon);
+}
+.manifest-list li.done .manifest-check{ background:var(--maroon); }
+.manifest-list li.done .manifest-check::after{
+  content:''; position:absolute; left:4px; top:1px; width:4px; height:8px;
+  border:solid var(--parchment-2); border-width:0 2px 2px 0; transform:rotate(38deg);
+}
+.manifest-list li.pending .manifest-check{ border-style:dashed; }
+/* wraps text+carry-tag together as one flex item so the tag can wrap onto
+   its own line when space is tight (e.g. squeezed beside a float) instead
+   of overflowing the row -- min-width:0 is what lets a flex item shrink
+   below its content's natural width at all. */
+/* plain inline span now (li is no longer flex) -- just carries the text +
+   nested carry-tag as one run so normal line-wrapping applies to both. */
+.manifest-item-text{ display:inline; }
+.manifest-carry{
+  display:inline-block; text-indent:0;
+  font-family:var(--font-mono); font-size:.68rem; letter-spacing:.05em; color:var(--maroon-bright);
+  white-space:nowrap; margin-left:.4rem;
+}
+/* items that involved a wrong guess before the real cause: the struck-through
+   span is the ruled-out hypothesis, the rest of the line is the real cause
+   and fix, and the whole item is a link to that part of the full write-up. */
+.manifest-link{
+  color:inherit; text-decoration:none;
+  border-bottom:1px dashed var(--line-strong);
+  transition:color .15s ease, border-color .15s ease;
+}
+.manifest-link:hover, .manifest-link:focus-visible{
+  color:var(--maroon-bright); border-color:var(--maroon-bright);
+}
+.ruled-out{
+  text-decoration:line-through; text-decoration-color:var(--ink-faint);
   color:var(--ink-faint);
 }
-.gen-cover-drawing-slot svg{ width:1.8rem; height:1.8rem; }
-.gen-cover-drawing-slot span{ font-family:var(--font-mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; }
+
+/* jump targets inside a phase-body: land clear of the sticky nav, and get a
+   brief highlight so it's obvious what the manifest link actually pointed
+   at. Native browser behavior auto-opens a closed <details> when the
+   fragment target is inside it, so no JS is needed for the fold itself. */
+.jump-target{ scroll-margin-top:5.5rem; }
+.jump-target:target{ animation:jump-flash 2.4s ease; }
+@keyframes jump-flash{
+  0%{ background:rgba(122,36,29,.16); }
+  100%{ background:transparent; }
+}
 
 .gen-cover-hint{
   align-self:flex-start;
