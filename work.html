@@ -81,23 +81,25 @@
         </div>
         <p class="flagship-role">Lead Designer · Metamobility Lab, Carnegie Mellon University</p>
 
+        <p class="flagship-thesis">The question underneath all three generations below: could a lighter, lower-torque exoskeleton design deliver more metabolic benefit than a heavier, higher-torque one?</p>
+
         <p class="context-line">Before touching hardware: two months cleaning up an existing PhD student's control codebase — unglamorous, undocumented work, but it's how I got embedded in the project in the first place.</p>
 
         <div class="stat-row">
           <div class="stat">
-            <div class="stat-num">4.0kg</div>
+            <div class="stat-num">3.2kg</div>
             <div class="stat-label">Current weight</div>
-            <div class="stat-sub">Down from 4.2kg baseline, via 3.1kg — see trade-off below</div>
+            <div class="stat-sub">4.2kg baseline → 3.1kg → ~4kg → 3.2kg across three generations</div>
           </div>
           <div class="stat">
             <div class="stat-num">17 N·m</div>
-            <div class="stat-label">Torque before rocking</div>
-            <div class="stat-sub">Up from 12 N·m after the thigh redesign</div>
+            <div class="stat-label">Torque capacity, zero rocking</div>
+            <div class="stat-sub">Up from 12 N·m — pilot metabolic test run at ~10 N·m</div>
           </div>
           <div class="stat">
             <div class="stat-num">+</div>
             <div class="stat-label">Metabolic pilot result</div>
-            <div class="stat-sub">Positive reduction across all pilot subjects</div>
+            <div class="stat-sub">Positive reduction across all three pilot subjects</div>
           </div>
         </div>
 
@@ -118,12 +120,13 @@
             </div>
             <div class="gen-cover-content-col">
               <div>
+                <h4 class="gen-cover-purpose">Is Lightweight Actually Better?</h4>
                 <div class="gen-cover-bullets-label">What I did</div>
                 <ul class="gen-cover-bullets">
-                  <li>Reverse-engineered a commercial exoskeleton by hand — no CAD, no manufacturer drawings</li>
-                  <li>Designed a custom motor-mount adaptor from scratch</li>
-                  <li>Converted the device to run our own motor and Jetson</li>
-                  <li>Recorded this lab's first-ever measurable metabolic benefit</li>
+                  <li>Reverse-engineered a 2.5kg commercial exoskeleton by hand to test whether lighter, lower-torque could beat heavier, higher-torque on metabolic benefit</li>
+                  <li>Traced a flickering encoder reading past a plausible-but-wrong fix to its real cause — a missing mounting hole pattern — solved with a custom shadow-casting rig</li>
+                  <li>Investigated three simultaneous suspects behind motor rocking — pelvis mount, thigh contact, and hinge — escalating through three hinge designs before deciding to design one from scratch</li>
+                  <li>Guided an undergrad's FEA study proving torsional load, not plane stress, was driving the failures, and used it to reshape the thigh interface</li>
                 </ul>
               </div>
               <div class="gen-cover-drawing-slot"><svg class="icon"><use href="#i-cad"></use></svg><span>Engineering drawing — coming soon</span></div>
@@ -133,11 +136,13 @@
         </summary>
         <div class="gen-fold-body">
           <div class="phase">
-            <div class="phase-head"><span class="phase-num">I</span><h4>Feasibility — Commercial Teardown &amp; Motor Conversion</h4></div>
+            <div class="phase-head"><span class="phase-num">I</span><h4>Feasibility — Commercial Teardown, Conversion &amp; First Validation</h4></div>
             <div class="phase-body">
-              <p>Our PI wanted to benchmark a commercial device against the lab's own past-student designs. I disassembled the commercial unit and converted it to accept our motor and Jetson, which used a completely different input/output pattern than the stock hardware — and the PI didn't want the commercial unit damaged, so this had to be non-destructive reverse engineering with no CAD or engineering drawings to start from.</p>
-              <p>The hardest part was mounting the motor driver securely. Without a way to see the true hole pattern on the commercial housing, earlier mounting attempts left the encoder reader misaligned. I ended up projecting the part to a larger scale with a shadow-casting rig, then measured the hole coordinates on a lathe to recover the pattern precisely enough to design a proper adaptor — about two weeks of work.</p>
-              <p>Along the way, the PLA I was printing with deformed and melted from motor heat, which sent me back to respec the printer materials before continuing.</p>
+              <p>Papers using the Samsung GEM exoskeleton suggested a lighter, lower-torque design could deliver more metabolic benefit than a heavier, higher-torque one. Hypershell's commercial device weighs just 2.5kg without batteries — light enough that testing this hypothesis, before committing the lab to a full from-scratch build, seemed worth doing first.</p>
+              <p>I designed an adaptor to mount our own motor and a custom PCB (mounted on top of the Jetson) onto the Hypershell structure, while reverse-engineering the device itself from the physical object — no manufacturer CAD or drawings existed, and Hypershell's thigh interface has an unusually complex curvature that made the reconstruction hard.</p>
+              <p class="sub">Chasing a flickering reading</p>
+              <p>During testing, the motor encoder reading was intermittent — good sometimes, bad other times. My first hypothesis was the mounting material: the lab was using PLA at the time, which deforms under motor heat, so I respecified it to PAHT-CF. The reading was still bad. The real cause turned out to be that the driver board couldn't be bolted down without matching the commercial unit's own hole pattern, which no drawings existed for either — solved with a custom shadow-casting rig, projecting the part at a larger scale to measure the hole coordinates on a lathe. About two weeks of work in total.</p>
+              <p>With a reliable reading, I ran a metabolic test on the converted device: a 1% reduction versus no exoskeleton, single subject — modest, but the first measurable metabolic benefit this lab had produced. The past student's device hadn't shown one. That result was enough for our PI to commit to a full reverse-engineering of the device.</p>
               <p class="sub">Media</p>
               <div class="media-grid">
                 <div class="media-slot"><svg class="icon"><use href="#i-video"></use></svg><span class="slot-type">Video</span><span class="slot-desc">Shadow-casting rig in use</span></div>
@@ -149,25 +154,22 @@
           </div>
 
           <div class="phase">
-            <div class="phase-head"><span class="phase-num">II</span><h4>First Validation</h4></div>
+            <div class="phase-head"><span class="phase-num">II</span><h4>Full Reverse-Engineering — Three Suspects, One Culprit</h4></div>
             <div class="phase-body">
-              <p>Metabolic testing on the converted device showed a 1% reduction versus no exoskeleton — a single subject, but the first measurable metabolic benefit this lab had produced. The past student's device hadn't shown one. That result was enough for our PI to fully commit to a ground-up reverse-engineering of the device.</p>
-            </div>
-          </div>
-
-          <div class="phase">
-            <div class="phase-head"><span class="phase-num">III</span><h4>Full Reverse-Engineered Device</h4></div>
-            <div class="phase-body">
-              <p>I reverse-engineered the complete commercial device — my CAD ended up visually near-identical to the original, built entirely from measurement and observation since no manufacturer drawings existed to start from. Our 3D printer was too small for the full-scale parts, so I redesigned around that constraint while preserving the structure, keeping everything manufacturable in-house.</p>
-              <p class="sub">Hinge failures</p>
-              <p>The abduction/adduction hinge was too weak for the loads passing through it. I tried several mechanical hinge designs; all of them broke under load, which pushed a custom hinge onto the roadmap for a future iteration.</p>
+              <p>Full reverse-engineering began at speed — I wanted a testable result fast, so I started with whatever was quick and cheap, evaluated it, and moved on when it failed. My CAD ended up visually near-identical to the commercial original, built entirely from measurement since no manufacturer drawings existed. Our 3D printer was too small for the full-scale parts, so I redesigned around that constraint while keeping the structure intact.</p>
+              <p>When motor rocking showed up under load, I had three suspects and worked all three at once: the pelvis interface, insufficient thigh contact, and the hinge.</p>
               <p class="sub">The pelvis interface</p>
-              <p>At high torque, the motor rocked forward and backward. My first hypothesis was the pelvis interface — I iterated through several rough geometries, testing fit directly on people to see where the gaps were. Eventually I took a cue from Georgia Tech's device design: using surfacing to generate a generic hip profile, then building the pelvis interface as an offset of that profile. Fit improved significantly, though rocking itself wasn't solved yet — that's Generation Two, next.</p>
+              <p>Hypershell's own pelvis part sits on top of the glutes rather than the lower back, which I suspected made it inherently less secure. I tried several back-plate drafts — deliberately cheap, fit-check only, never load-tested for torque — but none fit perfectly. This thread stayed open through the end of Mark I.</p>
+              <p class="sub">The thigh interface</p>
+              <p>I proposed adding high-thigh straps for more contact area, reasoning more contact would reduce rocking. My PI disagreed — more strapping is less comfortable and widens the gait — and while I wasn't fully convinced, I dropped this thread rather than resolve the disagreement at the time.</p>
+              <p class="sub">Hinge failures</p>
+              <p>The hinge looked like the fastest fix, so it got most of my attention. The door hinge already in place had gaps both between the pin and leaf and leaf-to-leaf. A quick plastic hinge sourced off Amazon didn't endure even 12 N&middot;m. That failure pointed me toward a new hypothesis — that the thigh interface's unusual curvature was driving outsized torsional force into the hinge — and I guided an undergrad through an FEA study to test it. His analysis, based on principal stress theory (&sigma;<sub>1,2</sub> = (&sigma;<sub>x</sub>+&sigma;<sub>y</sub>)/2 &plusmn; &radic;(((&sigma;<sub>x</sub>&minus;&sigma;<sub>y</sub>)/2)&sup2; + &tau;<sub>xy</sub>&sup2;)), showed that because the shear/torsional term is squared, torsional loading dominates far more than plane stress — so the fix was geometric: move the curved part of the thigh interface further up the leg. I adopted the change.</p>
+              <p>Meanwhile, a McMaster metal hinge held to 12 N&middot;m but rocked worse than the plastic one, from the same leaf/pin gap problem. I modified it myself — dowel pins, redrilled holes, shims — which fixed the wobble and pushed it to 15 N&middot;m, where it broke. Three off-the-shelf hinges, three separate workarounds, still failing: that's what convinced me to design a custom hinge from scratch instead.</p>
               <p class="sub">Media</p>
               <div class="media-grid">
                 <div class="media-slot"><svg class="icon"><use href="#i-cad"></use></svg><span class="slot-type">CAD</span><span class="slot-desc">Device vs. commercial, side by side</span></div>
-                <div class="media-slot"><svg class="icon"><use href="#i-video"></use></svg><span class="slot-type">Video</span><span class="slot-desc">Hinges breaking under load</span></div>
-                <div class="media-slot"><svg class="icon"><use href="#i-photo"></use></svg><span class="slot-type">Photo</span><span class="slot-desc">Pelvis interface iterations</span></div>
+                <div class="media-slot"><svg class="icon"><use href="#i-video"></use></svg><span class="slot-type">Video</span><span class="slot-desc">Three hinge designs breaking under load</span></div>
+                <div class="media-slot"><svg class="icon"><use href="#i-photo"></use></svg><span class="slot-type">Photo</span><span class="slot-desc">Pelvis back-plate drafts, fit-check only</span></div>
               </div>
             </div>
           </div>
@@ -176,27 +178,30 @@
         </div>
       </details>
 
-      <!-- ============ GENERATION 2: CALF-INTERFACE REDESIGN ============ -->
+      <div class="gen-bridge"><span>Three off-the-shelf hinges, three failures. Next: eliminate the hinge problem at its source.</span></div>
+
+      <!-- ============ GENERATION 2: CUSTOM-FIT REDESIGN ============ -->
       <details class="gen-fold">
         <summary class="gen-summary">
           <div class="gen-cover reverse">
             <div class="gen-cover-ribbon-col">
               <div class="gen-cover-ribbon-top">
                 <div class="gen-cover-mark">Mark II</div>
-                <div class="gen-cover-mark-sub">The Calf-Interface Redesign</div>
+                <div class="gen-cover-mark-sub">The Custom-Fit Redesign</div>
               </div>
               <div class="gen-cover-photo-zone">
-                <img class="gen-cover-photo" src="images/gen2-cutout.png" alt="Oscar wearing the Generation Two hip exoskeleton, showing the redesigned calf-like thigh interface">
+                <img class="gen-cover-photo" src="images/gen2-cutout.png" alt="Oscar wearing the Generation Two hip exoskeleton, showing the ergonomic pelvis interface and custom hinge">
               </div>
             </div>
             <div class="gen-cover-content-col">
               <div>
+                <h4 class="gen-cover-purpose">Stop Chasing Fit-Everyone. Build One That Works.</h4>
                 <div class="gen-cover-bullets-label">What I did</div>
                 <ul class="gen-cover-bullets">
-                  <li>Diagnosed motor rocking down to the thigh interface, not the pelvis</li>
-                  <li>Redesigned it into a calf-like structure</li>
-                  <li>Eliminated rocking entirely, up to 17 N&middot;m</li>
-                  <li>Accepted a ~1kg weight trade-off for structural stability</li>
+                  <li>Abandoned "fits everyone" to focus entirely on one working system — surfaced my own body in SolidWorks to build a Georgia-Tech-inspired, ergonomic pelvis interface</li>
+                  <li>Eliminated hinge wobble at its source by building the pelvis interface with no separate ABAD hinge at all</li>
+                  <li>Overrode my PI's comfort objection to test a tightly-fitted thigh cuff, reasoning through why rocking amplifies farther from the motor</li>
+                  <li>Turned a requested quick-release motor connector into a custom shoulder-bolt hinge — eliminating rocking entirely, up to 17 N&middot;m</li>
                 </ul>
               </div>
               <div class="gen-cover-drawing-slot"><svg class="icon"><use href="#i-cad"></use></svg><span>Engineering drawing — coming soon</span></div>
@@ -206,13 +211,29 @@
         </summary>
         <div class="gen-fold-body">
           <div class="phase">
-            <div class="phase-head"><span class="phase-num">IV</span><h4>The Motor Rocking Problem</h4></div>
+            <div class="phase-head"><span class="phase-num">III</span><h4>The Pivot — Building for One Body, Not Everyone</h4></div>
             <div class="phase-body">
-              <p>Even with the improved pelvis interface from Generation One, the device still rocked forward and backward under high torque. The cause turned out to be the thigh interface, not the pelvis. Redesigning it into a calf-like structure eliminated the rocking entirely, up to 17 N&middot;m — a clear before/after, not just a marginal improvement. This is the strongest documentation in the whole project: two side-by-side videos showing the calf design against the old one under identical load.</p>
+              <p>By the end of Mark I it was already April — seven months into the project — and I still didn't have a system working at high torque. I concluded the block-like pelvis design simply didn't fit well across different people, while Georgia Tech's more ergonomic approach looked promising: more pelvis contact points, better support. Test prints confirmed it fit well, and I committed to a Georgia-Tech-inspired pelvis interface from that point on.</p>
+              <p>I also made a deliberate scope cut: stop trying to fit everyone, and focus entirely on getting one working system — on myself. That meant abandoning some Mark I generalization work, like an extendable pelvis meant to fit a range of hip widths.</p>
+              <p class="sub">Building the ergonomic pelvis</p>
+              <p>With no body-scanning equipment available, I measured myself the old-fashioned way — circumference and midpoint-to-endpoint distances across the upper thigh, hip, and lower back — and used SolidWorks surfacing tools to reconstruct a model of my own pelvis, glutes, and thigh region from those measurements, then built the pelvis interface directly off that surface, crediting Georgia Tech's device design for the underlying approach. It fit me perfectly. It also surfaced a new problem: the resulting body-facing surface isn't flat, but the motor needs to sit flush on the sagittal plane or it delivers torque at an angle. Not severe enough to block progress yet — I didn't solve it until Mark III.</p>
+              <p class="sub">Eliminating the hinge</p>
+              <p>Motor rocking still hadn't gone away, even with a good pelvis fit. Having already lost faith in off-the-shelf hinges, I built the ABAD joint directly into the pelvis interface with no separate hinge at all, which eliminated hinge wobble as a variable outright. (Every ABAD hinge through Mark I had sat below the motor — this was the first time the joint moved close to it.)</p>
+            </div>
+          </div>
+
+          <div class="phase">
+            <div class="phase-head"><span class="phase-num">IV</span><h4>Still Rocking — The Thigh Interface and a Custom Hinge</h4></div>
+            <div class="phase-body">
+              <p class="sub">Why distance from the motor matters</p>
+              <p>Rocking still persisted, which sent me back to the thigh interface as the last suspect. I think of it as a link&ndash;motor&ndash;link problem: secure both far ends of a link and the motor in between has room to rock; secure the link close to the motor instead, and it should rock less. Two things likely explain why. Any small angular play at a loose joint — a sloppy pin, an under-constrained contact — produces a linear displacement proportional to how far that joint is from the point you're watching, the same reason a wrench wobbles more at the far end of the handle than right at a loose bolt head. And if the structure itself flexes rather than just having play, cantilever-beam deflection under load scales with the cube of the distance from its support, so a compliant joint far from the motor bends disproportionately more than one close to it. Either way, constraining the far ends of the assembly — a good pelvis fit alone — wasn't enough; what mattered was constraining something close to the motor.</p>
+              <p>I decided to test the high-contact thigh idea from Mark I anyway, my PI's earlier gait concerns notwithstanding. Using the same measure-and-surface method as the pelvis, I built a tightly-fitted thigh cuff leaving almost no gap against my leg.</p>
+              <p>Separately, my PI wanted the motor to be easy to attach and detach so it could be swapped across interfaces. I designed a removable hip-joint&ndash;pelvis connector for this — a shoulder bolt through the top of the motor that unscrews to remove the motor and hip-joint interface as a unit. That led directly to the idea that finally solved the hinge problem: since it already needed to be a shoulder bolt, swapping in one with a bushing turns the same fastener into a purpose-built hinge, solving the modularity request and the hinge problem with one part.</p>
+              <p>Tested in one attempt: no motor rocking at all, up to 17 N&middot;m.</p>
               <p class="sub">Media</p>
               <div class="media-grid">
-                <div class="media-slot"><svg class="icon"><use href="#i-video"></use></svg><span class="slot-type">Video</span><span class="slot-desc">Calf vs. old design, rocking compared (1 of 2)</span></div>
-                <div class="media-slot"><svg class="icon"><use href="#i-video"></use></svg><span class="slot-type">Video</span><span class="slot-desc">Calf vs. old design, rocking compared (2 of 2)</span></div>
+                <div class="media-slot"><svg class="icon"><use href="#i-video"></use></svg><span class="slot-type">Video</span><span class="slot-desc">New design vs. old, rocking compared (1 of 2)</span></div>
+                <div class="media-slot"><svg class="icon"><use href="#i-video"></use></svg><span class="slot-type">Video</span><span class="slot-desc">New design vs. old, rocking compared (2 of 2)</span></div>
               </div>
             </div>
           </div>
@@ -220,11 +241,13 @@
           <div class="phase">
             <div class="phase-head"><span class="phase-num">V</span><h4>The Weight Trade-off</h4></div>
             <div class="phase-body">
-              <p>Solving the rocking issue brought the weight back up from 3.1kg to around 4kg — which on paper works against the point of a lightweight design. I'm treating that honestly as a trade-off rather than a regression: a fully weight-optimized structure couldn't survive the loads it needed to, so the extra mass buys the structural integrity the device actually needs to function.</p>
+              <p>Solving the rocking issue brought the weight back up from 3.1kg to around 4kg — a byproduct of building tightly-fitted, integrated parts (the hingeless pelvis, the custom shoulder-bolt hinge, the close-contact thigh cuff) rather than a purely weight-optimized structure. I'm treating that honestly as a trade-off, not a regression. This is also a device custom-fit to one body — my own — which is its own limitation, and the subject of Mark III.</p>
             </div>
           </div>
         </div>
       </details>
+
+      <div class="gen-bridge"><span>Proven on one body, 17 N&middot;m, zero rocking. Next: make it fit anyone.</span></div>
 
       <!-- ============ GENERATION 3: GENERALIZED INTERFACE ============ -->
       <details class="gen-fold">
@@ -241,12 +264,13 @@
             </div>
             <div class="gen-cover-content-col">
               <div>
+                <h4 class="gen-cover-purpose">Mature Enough to Ask a Harder Question</h4>
                 <div class="gen-cover-bullets-label">What I did</div>
                 <ul class="gen-cover-bullets">
-                  <li>Collaborated with a PhD student to generalize the interface</li>
-                  <li>Built a pelvis interface that fits a range of body sizes</li>
-                  <li>Added a straight-bar alternative configuration</li>
-                  <li>Ran a pilot metabolic test across three subjects</li>
+                  <li>Generalized the pelvis interface to a movable design fitting a range of body sizes across the lab, after handing hardware leadership to a PhD student</li>
+                  <li>Solved a resurfaced Mark II problem — the motor digging into the pelvis bone — by offsetting the motor for clearance</li>
+                  <li>Replaced the ABAD hinge entirely with a flexing carbon-fiber sheet, closing out two generations of hinge failures for good</li>
+                  <li>Ran a 3-subject pilot metabolic test at ~10 N&middot;m that validated the project's founding hypothesis</li>
                 </ul>
               </div>
               <div class="gen-cover-drawing-slot"><svg class="icon"><use href="#i-cad"></use></svg><span>Engineering drawing — coming soon</span></div>
@@ -256,15 +280,24 @@
         </summary>
         <div class="gen-fold-body">
           <div class="phase">
-            <div class="phase-head"><span class="phase-num">VI</span><h4>Generalizing With a PhD Collaborator</h4></div>
+            <div class="phase-head"><span class="phase-num">VI</span><h4>Generalizing Under New Leadership</h4></div>
             <div class="phase-body">
-              <p>Working with a PhD student in the lab, the interface was generalized past a single fitted design: the pelvis interface now fits a range of body sizes, and a straight-bar version was added as an alternate configuration. A pilot metabolic test across three subjects showed a meaningful reduction in effort for all three — early-stage pilot testing, not a completed study, so I'm stating that qualitatively rather than citing exact numbers here.</p>
+              <p>By May, I wanted to spend more time on the control side of the project and stepped back from hardware, handing it to a PhD student in the lab. I only stepped back in when an undergrad's design attempt didn't work out.</p>
+              <p>The changes I made directly: reworked the pelvis interface to be movable, so it could generically fit a range of pelvis shapes across the lab — which immediately resurfaced the motor-mounting problem deferred from Mark II, since a varying pelvis shape made the non-flat mounting surface unavoidable. I fixed it by offsetting the motor for clearance. I also redesigned the strapping, from one stomach belt and one pelvis belt into two cross belts — noticeably lighter than before.</p>
+              <p class="sub">Straight bar, and cleaning up</p>
+              <p>An undergrad developed a straight-bar alternative configuration — a good concept that needed polishing, but he left partway through the summer before finishing it. I ended up cleaning up the CAD for the whole project.</p>
+              <p class="sub">Removing the hinge for good</p>
+              <p>The PhD student in charge took my advice to remove the ABAD hinge entirely — it does very little during level-ground walking anyway — replacing it with a carbon-fiber sheet that flexes slightly in the ABAD direction, closing out two generations of hinge failures for good. The PhD also tried a passive thigh-damping system; it didn't actually damp, but it did apply the strap-close-to-the-motor principle from Mark II.</p>
+              <p>The result: about 3.2kg, tested on three subjects for metabolic benefit at roughly 10 N&middot;m — 8 N&middot;m for one subject, well under what Mark II proved the hardware could handle. That's the number that mattered: it's the direct test of the hypothesis that opened this whole project.</p>
               <p class="sub">Media</p>
               <div class="media-grid">
-                <div class="media-slot"><svg class="icon"><use href="#i-cad"></use></svg><span class="slot-type">CAD</span><span class="slot-desc">Generalized, multi-size interface</span></div>
+                <div class="media-slot"><svg class="icon"><use href="#i-cad"></use></svg><span class="slot-type">CAD</span><span class="slot-desc">Movable, multi-size pelvis interface</span></div>
+                <div class="media-slot"><svg class="icon"><use href="#i-photo"></use></svg><span class="slot-type">Photo</span><span class="slot-desc">Carbon-fiber ABAD flexure</span></div>
+                <div class="media-slot"><svg class="icon"><use href="#i-cad"></use></svg><span class="slot-type">CAD</span><span class="slot-desc">Straight-bar alternative configuration</span></div>
               </div>
             </div>
           </div>
+          <p class="credit-note">Ends this generation at 3.2kg, tested on three subjects — the number that answers Mark I's opening question.</p>
         </div>
       </details>
 
@@ -279,13 +312,13 @@
             </ul>
             <div class="fea-callout">
               <div class="media-slot" style="min-height:90px;"><svg class="icon"><use href="#i-diagram"></use></svg><span class="slot-type">Diagram</span><span class="slot-desc">FEA stress plot, thigh interface</span></div>
-              <p class="fea-finding">One mentee ran an FEA study on the thigh interface: the higher up the thigh the curve is placed, the lower the torsional force — a real, usable finding that made the hardware more stable.</p>
+              <p class="fea-finding">When a Mark I hinge kept failing, I guided a mentee through an FEA study on the thigh interface. Principal stress theory showed torsional load, not plane stress, was driving the failures — moving the curve further up the thigh would reduce it. A direct, usable fix, not just a class exercise.</p>
             </div>
           </div>
         </div>
 
         <div class="closing-note">
-          <p>Next: I want to study how different interface designs affect torque transmissibility — the question underneath all of this, and the next step toward getting the hardware/control ratio right.</p>
+          <p>Mark III's pilot metabolic test — run at roughly 10 N&middot;m, well under what Mark II's hardware could survive — showed a meaningful reduction across all three subjects: proof the hypothesis that opened this project held. That result raised the question I'm working on now: how different interface designs affect torque transmissibility.</p>
         </div>
       </div>
 

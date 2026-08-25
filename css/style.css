@@ -253,6 +253,14 @@ blockquote.thesis{
 .flagship-head{ display:flex; flex-wrap:wrap; align-items:baseline; gap:.9rem 1.2rem; margin-bottom:.6rem; }
 .flagship-head h3{ font-size:clamp(1.6rem,3vw,2.1rem); }
 .flagship-role{ font-family:var(--font-mono); font-size:.82rem; color:var(--ink-muted); margin-bottom:1.6rem; }
+/* the question that opens the whole flagship section — same italic/
+   maroon-bright treatment as .closing-note below, deliberately, so the
+   two read as a matched pair: the question up here, the answer down
+   there once Mark III's cover has been read. */
+.flagship-thesis{
+  font-family:var(--font-body); font-style:italic; color:var(--maroon-bright);
+  font-size:clamp(1.05rem,2vw,1.22rem); max-width:64ch; line-height:1.5; margin:0 0 1.7rem 0;
+}
 .context-line{ font-style:italic; color:var(--ink-faint); font-size:.92rem; border-left:2px solid var(--line-strong); padding-left:.9rem; margin:0 0 2rem 0; }
 
 .phase{ padding:2rem 0; border-top:1px solid var(--line); }
@@ -505,6 +513,15 @@ footer.site-foot{ padding:2.5rem 0 3.5rem; }
   padding:clamp(1.8rem,3.4vw,2.6rem) clamp(1.8rem,3.4vw,2.6rem);
   display:flex; flex-direction:column; gap:1.5rem;
 }
+/* the "why this generation exists" line — sits above the "what I did"
+   label, giving each cover its own thesis statement (the hypothesis being
+   tested, the priority being chased, the question being answered) rather
+   than only a bullet list of actions. */
+.gen-cover-purpose{
+  font-family:var(--font-display); font-weight:700;
+  font-size:clamp(1.1rem,2.1vw,1.35rem); line-height:1.28;
+  color:var(--maroon-bright); margin:0 0 1.1rem 0;
+}
 .gen-cover-bullets-label{
   font-family:var(--font-mono); font-size:.7rem; letter-spacing:.18em; text-transform:uppercase;
   color:var(--maroon);
@@ -566,6 +583,19 @@ footer.site-foot{ padding:2.5rem 0 3.5rem; }
 
 .gen-fold-body{ padding:clamp(1.6rem,4vw,2.4rem); border-top:1px dashed var(--line-strong); }
 .gen-fold-body .phase:first-child{ padding-top:0; border-top:none; }
+
+/* short connective line between two hardware-generation covers, stating
+   what problem got handed from one generation to the next — a rule on
+   each side, italic caption in the middle, so it reads as a chapter break
+   rather than another content block. */
+.gen-bridge{
+  display:flex; align-items:center; gap:1rem;
+  margin:1.4rem clamp(0.4rem,3vw,1.8rem);
+  font-family:var(--font-mono); font-size:.8rem; font-style:italic;
+  color:var(--ink-muted); text-align:center; line-height:1.4;
+}
+.gen-bridge::before, .gen-bridge::after{ content:''; flex:1 1 auto; height:1px; background:var(--line); }
+.gen-bridge span{ flex:0 0 auto; max-width:52ch; }
 
 /* ============ SITE INTRO STRIP (used on sub-pages under the page header) ============ */
 .record-label{ font-family:var(--font-mono); font-size:.78rem; letter-spacing:.16em; text-transform:uppercase; color:var(--maroon); }
