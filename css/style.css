@@ -265,6 +265,18 @@ blockquote.thesis{
 @media (max-width:640px){
   .inline-figure.float-right{ float:none; max-width:380px; margin:1.3rem auto; }
 }
+/* wide variant -- for a figure that needs to breathe more than the
+   default text-column width allows (a multi-panel comparison image, an
+   iteration filmstrip). Not floated -- it's meant to sit full-width in
+   its own block, same as a plain .inline-figure but wider. */
+.inline-figure.wide{ max-width:100%; }
+/* two small figures side by side -- a fit-check pair, a before/after --
+   collapsing to one column on narrow screens rather than squeezing. */
+.dual-figure{ display:grid; grid-template-columns:1fr 1fr; gap:1.1rem; margin:1.3rem 0; }
+.dual-figure .inline-figure{ max-width:none; margin:0; }
+@media (max-width:640px){
+  .dual-figure{ grid-template-columns:1fr; }
+}
 
 /* ============ BADGES ============ */
 .badge{

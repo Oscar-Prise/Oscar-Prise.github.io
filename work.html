@@ -190,16 +190,46 @@
               <p>When motor rocking showed up under load, I had three suspects and worked all three at once: the pelvis interface, insufficient thigh contact, and the hinge.</p>
               <p class="sub">The pelvis interface</p>
               <p>Hypershell's own pelvis part sits on top of the glutes rather than the lower back, which I suspected made it inherently less secure. I tried several back-plate drafts — deliberately cheap, fit-check only, never load-tested for torque — but none fit perfectly. This thread stayed open through the end of Mark I.</p>
+              <figure class="inline-figure wide">
+                <img src="images/gen1-pelvis-iterations.jpg" alt="Seven CAD iterations of the pelvis back-plate, from an early simple curved bar through progressively more integrated versions with cutouts and lightening holes, to a final wedge-shaped design">
+                <figcaption>Seven back-plate drafts, in order. Each one got fit-checked and cut loose rather than carried forward whole — a plain curved bar first, then more contact area and lightening cutouts added as each version's failure suggested the next.</figcaption>
+              </figure>
+              <div class="dual-figure">
+                <figure class="inline-figure">
+                  <img src="images/gen1-fit-check-a.jpg" alt="Oscar wearing an early 3D-printed pelvis back-plate draft against his hip to check fit">
+                  <figcaption>Fit-checking a draft against my own hip — geometry only, no load testing.</figcaption>
+                </figure>
+                <figure class="inline-figure">
+                  <img src="images/gen1-fit-check-b.jpg" alt="A different angle of the same fit check, showing the printed bracket strapped against the hip">
+                  <figcaption>Same check, rotated — none of these drafts fit perfectly.</figcaption>
+                </figure>
+              </div>
+              <div class="dual-figure">
+                <figure class="inline-figure">
+                  <img src="images/gen1-backplate-draft-a.jpg" alt="A back-plate draft held up against a sheet of paper to check its silhouette">
+                  <figcaption>One of the discarded drafts, held against paper to check silhouette and bolt spacing before being thrown out.</figcaption>
+                </figure>
+                <figure class="inline-figure">
+                  <img src="images/gen1-backplate-draft-d.jpg" alt="A later, more integrated back-plate draft with a perforated lightening panel">
+                  <figcaption>A later draft, with a perforated panel cut in for weight.</figcaption>
+                </figure>
+              </div>
               <p class="sub">The thigh interface</p>
               <p>I proposed adding high-thigh straps for more contact area, reasoning more contact would reduce rocking. My PI disagreed — more strapping is less comfortable and widens the gait — and while I wasn't fully convinced, I dropped this thread rather than resolve the disagreement at the time.</p>
               <p class="sub jump-target" id="mark1-hinge-fea">Hinge failures</p>
               <p>The hinge looked like the fastest fix, so it got most of my attention. The door hinge already in place had gaps both between the pin and leaf and leaf-to-leaf. A quick plastic hinge sourced off Amazon didn't endure even 12 N&middot;m. That failure pointed me toward a new hypothesis — that the thigh interface's unusual curvature was driving outsized torsional force into the hinge — and I guided an undergrad through an FEA study to test it. His analysis, based on principal stress theory (&sigma;<sub>1,2</sub> = (&sigma;<sub>x</sub>+&sigma;<sub>y</sub>)/2 &plusmn; &radic;(((&sigma;<sub>x</sub>&minus;&sigma;<sub>y</sub>)/2)&sup2; + &tau;<sub>xy</sub>&sup2;)), showed that because the shear/torsional term is squared, torsional loading dominates far more than plane stress — so the fix was geometric: move the curved part of the thigh interface further up the leg. I adopted the change.</p>
-              <p>Meanwhile, a McMaster metal hinge held to 12 N&middot;m but rocked worse than the plastic one, from the same leaf/pin gap problem. I modified it myself — dowel pins, redrilled holes, shims — which fixed the wobble and pushed it to 15 N&middot;m, where it broke. Three off-the-shelf hinges, three separate workarounds, still failing: that's what convinced me to design a custom hinge from scratch instead.</p>
+              <p>Meanwhile, a McMaster metal hinge held to 12 N&middot;m but rocked worse than the plastic one, from the same leaf/pin gap problem.</p>
+              <figure class="inline-figure float-right">
+                <video controls preload="metadata" poster="images/gen1-hinge-poster.jpg">
+                  <source src="videos/gen1-mcmaster-hinge-play.mp4" type="video/mp4">
+                </video>
+                <figcaption>The McMaster metal hinge — the third one tried, after the door hinge and the plastic Amazon hinge — showing the same leaf/pin play that caused the rocking.</figcaption>
+              </figure>
+              <p>I modified it myself — dowel pins, redrilled holes, shims — which fixed the wobble and pushed it to 15 N&middot;m, where it broke. Three off-the-shelf hinges, three separate workarounds, still failing: that's what convinced me to design a custom hinge from scratch instead.</p>
               <p class="sub">Media</p>
               <div class="media-grid">
                 <div class="media-slot"><svg class="icon"><use href="#i-cad"></use></svg><span class="slot-type">CAD</span><span class="slot-desc">Device vs. commercial, side by side</span></div>
-                <div class="media-slot"><svg class="icon"><use href="#i-video"></use></svg><span class="slot-type">Video</span><span class="slot-desc">Three hinge designs breaking under load</span></div>
-                <div class="media-slot"><svg class="icon"><use href="#i-photo"></use></svg><span class="slot-type">Photo</span><span class="slot-desc">Pelvis back-plate drafts, fit-check only</span></div>
+                <div class="media-slot"><svg class="icon"><use href="#i-video"></use></svg><span class="slot-type">Video</span><span class="slot-desc">Door hinge &amp; plastic hinge failing under load</span></div>
               </div>
             </div>
           </div>
@@ -362,8 +392,9 @@
               <li>Currently supporting two PhD students: one on data collection and processing, the other on an outdoor human experiment — where I'm writing the test plans, pilot-testing protocols on myself, and scouting locations.</li>
             </ul>
             <div class="fea-callout">
-              <div class="media-slot" style="min-height:90px;"><svg class="icon"><use href="#i-diagram"></use></svg><span class="slot-type">Diagram</span><span class="slot-desc">FEA stress plot, thigh interface</span></div>
-              <p class="fea-finding">When a Mark I hinge kept failing, I guided a mentee through an FEA study on the thigh interface. Principal stress theory showed torsional load, not plane stress, was driving the failures — moving the curve further up the thigh would reduce it. A direct, usable fix, not just a class exercise.</p>
+              <img src="images/gen1-hinge-fea-stress.jpg" alt="SolidWorks von Mises stress plot of the thigh-bar geometry with the failing hinge, showing peak stress of 62.5 megapascals against a 60 megapascal yield strength" class="photo-border" style="width:100%; margin-bottom:.9rem;">
+              <p class="fea-finding">When a Mark I hinge kept failing, I guided a mentee through an FEA study comparing thigh-bar curvature options. Using maximum principal stress theory (chosen because PLA is brittle), his model put the straighter "medium" curve at about 52 MPa combined stress against a 60 MPa yield strength, versus about 43 MPa for the more sharply curved "high" option — the straighter geometry carries more torsional load, and that term dominates the combined stress. Modeled on the geometry that was actually failing on the bench, the same method predicted about 63 MPa: over yield, matching what kept breaking.</p>
+              <p style="margin-top:.7rem;"><a href="images/gen1-hinge-fea-notes.pdf" target="_blank" rel="noopener" style="font-family:var(--font-mono); font-size:.72rem; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint); text-decoration:underline; text-decoration-color:var(--line-strong);">Full FEA notes (PDF) &rarr;</a></p>
             </div>
           </div>
         </div>
