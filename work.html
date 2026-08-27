@@ -128,8 +128,8 @@
                     <div class="manifest-label">What I did</div>
                     <ul class="manifest-list">
                       <li class="done"><span class="manifest-check"></span>Reverse-engineered and converted a 2.5kg commercial exoskeleton to run our own motor and electronics</li>
-                      <li class="done"><span class="manifest-check"></span><a class="manifest-link" href="#mark1-encoder-fix"><span class="ruled-out">Suspected overheating PLA</span> &rarr; real cause was an unmountable driver board, fixed with a custom shadow-casting rig</a></li>
-                      <li class="done"><span class="manifest-check"></span><a class="manifest-link" href="#mark1-hinge-fea"><span class="ruled-out">Assumed it was just hinge strength</span> &rarr; FEA proved torsional load from the thigh interface was the real driver, and reshaped it accordingly</a></li>
+                      <li class="done"><span class="manifest-check"></span><a class="manifest-link" href="#mark1-encoder-fix">Encoder readings kept flickering out — <span class="ruled-out">suspected overheating PLA</span> &rarr; real cause was an unmountable driver board, fixed with a custom shadow-casting rig</a></li>
+                      <li class="done"><span class="manifest-check"></span><a class="manifest-link" href="#mark1-hinge-fea">Hinges kept breaking under load — <span class="ruled-out">assumed it was just hinge strength</span> &rarr; FEA proved torsional load from the thigh interface was the real driver, and reshaped it accordingly</a></li>
                       <li class="done"><span class="manifest-check"></span>Recorded this lab's first-ever measurable metabolic benefit</li>
                     </ul>
                   </div>
@@ -150,14 +150,32 @@
           <div class="phase">
             <div class="phase-head"><span class="phase-num">I</span><h4>Feasibility — Commercial Teardown, Conversion &amp; First Validation</h4></div>
             <div class="phase-body">
+              <figure class="inline-figure float-right">
+                <video autoplay muted loop playsinline preload="metadata" poster="videos/gen1-walking-poster.jpg">
+                  <source src="videos/gen1-walking-demo.mp4" type="video/mp4">
+                </video>
+                <figcaption>The Mark I conversion, worn and walking — Hypershell's chassis carrying our own motor, driver board, and wiring in place of its commercial internals.</figcaption>
+              </figure>
               <p>Papers using the Samsung GEM exoskeleton suggested a lighter, lower-torque design could deliver more metabolic benefit than a heavier, higher-torque one. Hypershell's commercial device weighs just 2.5kg without batteries — light enough that testing this hypothesis, before committing the lab to a full from-scratch build, seemed worth doing first.</p>
               <p>I designed an adaptor to mount our own motor and a custom PCB (mounted on top of the Jetson) onto the Hypershell structure, while reverse-engineering the device itself from the physical object — no manufacturer CAD or drawings existed, and Hypershell's thigh interface has an unusually complex curvature that made the reconstruction hard.</p>
               <p class="sub jump-target" id="mark1-encoder-fix">Chasing a flickering reading</p>
-              <p>During testing, the motor encoder reading was intermittent — good sometimes, bad other times. My first hypothesis was the mounting material: the lab was using PLA at the time, which deforms under motor heat, so I respecified it to PAHT-CF. The reading was still bad. The real cause turned out to be that the driver board couldn't be bolted down without matching the commercial unit's own hole pattern, which no drawings existed for either — solved with a custom shadow-casting rig, projecting the part at a larger scale to measure the hole coordinates on a lathe. About two weeks of work in total.</p>
+              <p>During testing, the motor encoder reading was intermittent — good sometimes, bad other times.</p>
+              <figure class="inline-figure">
+                <img src="images/gen1-encoder-trace.jpg" alt="Oscilloscope-style trace of position and command signals from the exoskeleton's control software, showing the encoder reading breaking up rather than tracking cleanly">
+                <figcaption>Live position (pos_L / pos_R) and command (cmd_L / cmd_R) traces during testing — the reading breaking up rather than settling, which raised the question of why the driver board wasn't getting a stable signal.</figcaption>
+              </figure>
+              <figure class="inline-figure float-right small">
+                <img src="images/gen1-nylon-reprint.jpg" alt="The reprinted adaptor pieces in black PAHT-CF, showing the bolt-circle hole pattern">
+                <figcaption>Reprinted in PAHT-CF after the PLA hypothesis — didn't fix the reading, but the material swap stuck anyway.</figcaption>
+              </figure>
+              <p>My first hypothesis was the mounting material: the lab was using PLA at the time, which deforms under motor heat, so I respecified it to PAHT-CF. The reading was still bad. The real cause turned out to be that the driver board couldn't be bolted down without matching the commercial unit's own hole pattern, which no drawings existed for either — solved with a custom shadow-casting rig, projecting the part at a larger scale to measure the hole coordinates on a lathe. About two weeks of work in total.</p>
+              <figure class="inline-figure">
+                <img src="images/gen1-shadow-rig.jpg" alt="An optical comparator projecting a shadow of the driver board mounting plate at larger scale, with a digital readout measuring hole coordinates">
+                <figcaption>The shadow-casting setup: an optical comparator projecting the mounting plate at a larger scale, read off against the Quadra-Chek digital readout to reconstruct the hole pattern by hand.</figcaption>
+              </figure>
               <p>With a reliable reading, I ran a metabolic test on the converted device: a 1% reduction versus no exoskeleton, single subject — modest, but the first measurable metabolic benefit this lab had produced. The past student's device hadn't shown one. That result was enough for our PI to commit to a full reverse-engineering of the device.</p>
               <p class="sub">Media</p>
               <div class="media-grid">
-                <div class="media-slot"><svg class="icon"><use href="#i-video"></use></svg><span class="slot-type">Video</span><span class="slot-desc">Shadow-casting rig in use</span></div>
                 <div class="media-slot"><svg class="icon"><use href="#i-photo"></use></svg><span class="slot-type">Photo</span><span class="slot-desc">The finished adaptor</span></div>
                 <div class="media-slot"><svg class="icon"><use href="#i-cad"></use></svg><span class="slot-type">CAD</span><span class="slot-desc">Adaptor design</span></div>
                 <div class="media-slot"><svg class="icon"><use href="#i-photo"></use></svg><span class="slot-type">Photo</span><span class="slot-desc">Melted PLA failure</span></div>

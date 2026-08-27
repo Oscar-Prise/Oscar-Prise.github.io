@@ -238,6 +238,34 @@ blockquote.thesis{
 .media-slot .slot-desc{ font-family:var(--font-mono); font-size:.72rem; color:var(--ink-faint); max-width:22ch; }
 .media-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:.9rem; margin:1.3rem 0 2rem; }
 
+/* ============ INLINE FIGURES (real evidence, placed in the phase-body
+   next to the claim it backs) ============
+   Distinct from .media-slot above: those are placeholders for media not
+   yet acquired. These are the real photo/video, dropped directly under or
+   beside the specific sentence it proves, textbook/figure style, rather
+   than bundled into an end-of-phase gallery. Photos get the site's red
+   photo-border; video does not (see the .photo-border comment above --
+   the border marks a still photo specifically), so it reads as motion
+   against a plain frame instead. */
+.inline-figure{ margin:1.3rem 0; max-width:520px; }
+.inline-figure img,
+.inline-figure video{ width:100%; height:auto; display:block; }
+.inline-figure img{ border:2px solid var(--photo-border); }
+.inline-figure video{ border:1px solid var(--line-strong); }
+.inline-figure figcaption{
+  margin-top:.5rem; font-family:var(--font-mono); font-size:.72rem; line-height:1.5;
+  color:var(--ink-faint); letter-spacing:.01em;
+}
+/* floated variant -- text reflows beside it, same mechanism as
+   .gen-cover-drawing-float on the generation covers above. For a figure
+   that should run alongside a couple of paragraphs rather than break the
+   column (an establishing shot, a small supporting thumbnail). */
+.inline-figure.float-right{ float:right; clear:right; margin:.2rem 0 1rem 1.4rem; }
+.inline-figure.float-right.small{ max-width:200px; }
+@media (max-width:640px){
+  .inline-figure.float-right{ float:none; max-width:380px; margin:1.3rem auto; }
+}
+
 /* ============ BADGES ============ */
 .badge{
   display:inline-flex; align-items:center; gap:.4rem; font-family:var(--font-mono); font-size:.68rem;
