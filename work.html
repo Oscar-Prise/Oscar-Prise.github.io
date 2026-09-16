@@ -128,8 +128,7 @@
                     <div class="manifest-label">What I did</div>
                     <ul class="manifest-list">
                       <li class="done"><span class="manifest-check"></span>Reverse-engineered and converted a 2.5kg commercial exoskeleton to run our own motor and electronics</li>
-                      <li class="done"><span class="manifest-check"></span><a class="manifest-link" href="#mark1-encoder-fix">Encoder readings kept flickering out — <span class="ruled-out">suspected overheating PLA</span> &rarr; real cause was an unmountable driver board, fixed with a custom shadow-casting rig</a></li>
-                      <li class="done"><span class="manifest-check"></span><a class="manifest-link" href="#mark1-hinge-fea">Hinges kept breaking under load — <span class="ruled-out">assumed it was just hinge strength</span> &rarr; FEA proved torsional load from the thigh interface was the real driver, and reshaped it accordingly</a></li>
+                      <li class="done"><span class="manifest-check"></span>Diagnosed motor rocking under load by testing three concurrent hypotheses — pelvis fit, thigh contact, and hinge play — and used FEA to confirm torsional load at the hinge was the real driver</li>
                       <li class="done"><span class="manifest-check"></span>Recorded this lab's first-ever measurable metabolic benefit</li>
                     </ul>
                   </div>
@@ -137,7 +136,7 @@
                     <div class="manifest-label">Carried Forward</div>
                     <div class="gen-cover-drawing-float"><img src="images/gen1-drawing.png" alt="Engineering drawing of the Mark I motor and actuator assembly"></div>
                     <ul class="manifest-list">
-                      <li class="pending"><span class="manifest-check"></span><span class="manifest-item-text">Motor rocking under load — three hinge designs failed in sequence<span class="manifest-carry">→ Mark II</span></span></li>
+                      <li class="pending"><span class="manifest-check"></span><span class="manifest-item-text">Motor rocking under load, still unresolved on two fronts — pelvis fit never landed, and three hinge designs failed in sequence<span class="manifest-carry">→ Mark II</span></span></li>
                     </ul>
                   </div>
                 </div>
@@ -215,7 +214,7 @@
                 </figure>
               </div>
               <p class="sub">The thigh interface</p>
-              <p>I proposed adding high-thigh straps for more contact area, reasoning more contact would reduce rocking. My PI disagreed — more strapping is less comfortable and widens the gait — and while I wasn't fully convinced, I dropped this thread rather than resolve the disagreement at the time.</p>
+              <p>I considered adding high-thigh straps for more contact area, reasoning more contact would reduce rocking. Weighed against the comfort and gait trade-offs, I set the idea aside for the time being — a thread I'd pick back up in Mark II.</p>
               <p class="sub jump-target" id="mark1-hinge-fea">Hinge failures</p>
               <p>The hinge looked like the fastest fix, so it got most of my attention. The door hinge already in place had gaps both between the pin and leaf and leaf-to-leaf. A quick plastic hinge sourced off Amazon didn't endure even 12 N&middot;m. That failure pointed me toward a new hypothesis — that the thigh interface's unusual curvature was driving outsized torsional force into the hinge — and I guided an undergrad through an FEA study to test it. His analysis, based on principal stress theory (&sigma;<sub>1,2</sub> = (&sigma;<sub>x</sub>+&sigma;<sub>y</sub>)/2 &plusmn; &radic;(((&sigma;<sub>x</sub>&minus;&sigma;<sub>y</sub>)/2)&sup2; + &tau;<sub>xy</sub>&sup2;)), showed that because the shear/torsional term is squared, torsional loading dominates far more than plane stress — so the fix was geometric: move the curved part of the thigh interface further up the leg. I adopted the change.</p>
               <p>Meanwhile, a McMaster metal hinge held to 12 N&middot;m but rocked worse than the plastic one, from the same leaf/pin gap problem.</p>
@@ -262,7 +261,7 @@
                     <ul class="manifest-list">
                       <li class="done"><span class="manifest-check"></span>Abandoned "fits everyone" to focus entirely on one working system — surfaced my own body in SolidWorks to build a Georgia-Tech-inspired, ergonomic pelvis interface</li>
                       <li class="done"><span class="manifest-check"></span>Eliminated hinge wobble at its source by building the pelvis interface with no separate ABAD hinge at all</li>
-                      <li class="done"><span class="manifest-check"></span>Overrode my PI's comfort objection to test a tightly-fitted thigh cuff, reasoning through why rocking amplifies farther from the motor</li>
+                      <li class="done"><span class="manifest-check"></span>Revisited a thigh-cuff idea shelved in Mark I — reasoning through why rocking amplifies farther from the motor — and built a tightly-fitted cuff</li>
                       <li class="done"><span class="manifest-check"></span>Turned a requested quick-release motor connector into a custom shoulder-bolt hinge — eliminating rocking entirely, up to 17 N&middot;m</li>
                     </ul>
                   </div>
@@ -298,14 +297,24 @@
             <div class="phase-body">
               <p class="sub">Why distance from the motor matters</p>
               <p>Rocking still persisted, which sent me back to the thigh interface as the last suspect. I think of it as a link&ndash;motor&ndash;link problem: secure both far ends of a link and the motor in between has room to rock; secure the link close to the motor instead, and it should rock less. Two things likely explain why. Any small angular play at a loose joint — a sloppy pin, an under-constrained contact — produces a linear displacement proportional to how far that joint is from the point you're watching, the same reason a wrench wobbles more at the far end of the handle than right at a loose bolt head. And if the structure itself flexes rather than just having play, cantilever-beam deflection under load scales with the cube of the distance from its support, so a compliant joint far from the motor bends disproportionately more than one close to it. Either way, constraining the far ends of the assembly — a good pelvis fit alone — wasn't enough; what mattered was constraining something close to the motor.</p>
-              <p>I decided to test the high-contact thigh idea from Mark I anyway, my PI's earlier gait concerns notwithstanding. Using the same measure-and-surface method as the pelvis, I built a tightly-fitted thigh cuff leaving almost no gap against my leg.</p>
+              <p>I came back to the high-contact thigh idea from Mark I, working through the earlier comfort and gait trade-offs by testing it directly. Using the same measure-and-surface method as the pelvis, I built a tightly-fitted thigh cuff leaving almost no gap against my leg.</p>
               <p>Separately, my PI wanted the motor to be easy to attach and detach so it could be swapped across interfaces. I designed a removable hip-joint&ndash;pelvis connector for this — a shoulder bolt through the top of the motor that unscrews to remove the motor and hip-joint interface as a unit. That led directly to the idea that finally solved the hinge problem: since it already needed to be a shoulder bolt, swapping in one with a bushing turns the same fastener into a purpose-built hinge, solving the modularity request and the hinge problem with one part.</p>
               <p>Tested in one attempt: no motor rocking at all, up to 17 N&middot;m.</p>
-              <p class="sub">Media</p>
-              <div class="media-grid">
-                <div class="media-slot"><svg class="icon"><use href="#i-video"></use></svg><span class="slot-type">Video</span><span class="slot-desc">New design vs. old, rocking compared (1 of 2)</span></div>
-                <div class="media-slot"><svg class="icon"><use href="#i-video"></use></svg><span class="slot-type">Video</span><span class="slot-desc">New design vs. old, rocking compared (2 of 2)</span></div>
+              <div class="video-compare">
+                <div class="video-compare-item">
+                  <p class="video-compare-label">Mark I &middot; 12 N&middot;m &middot; marching in place</p>
+                  <video muted loop playsinline autoplay preload="metadata" poster="images/gen1-rocking-poster.jpg">
+                    <source src="videos/gen1-rocking-marching.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <div class="video-compare-item">
+                  <p class="video-compare-label">Mark II &middot; 17 N&middot;m &middot; level-ground walking</p>
+                  <video muted loop playsinline autoplay preload="metadata" poster="images/gen2-walking-poster.jpg">
+                    <source src="videos/gen2-walking-steady.mp4" type="video/mp4">
+                  </video>
+                </div>
               </div>
+              <p class="video-compare-note">Not a controlled trial &mdash; Mark I is marching in place at 12 N&middot;m, the same setup that broke the plastic hinge; Mark II is walking at 17 N&middot;m, higher torque under real dynamic gait. If anything, that makes Mark II's zero rocking the harder result, not an easier one.</p>
             </div>
           </div>
 

@@ -277,6 +277,33 @@ blockquote.thesis{
 @media (max-width:640px){
   .dual-figure{ grid-template-columns:1fr; }
 }
+/* a two-video comparison where the clips don't share an aspect ratio (e.g.
+   one landscape, one portrait) -- .dual-figure's equal-width grid would
+   squash one clip's height way down relative to the other, so this matches
+   HEIGHT instead and lets width follow each clip's own aspect. Falls back
+   to width-matched/stacked on narrow screens where a shared height would
+   make the wider clip overflow. */
+.video-compare{
+  display:flex; align-items:flex-start; justify-content:center;
+  gap:1.4rem; flex-wrap:wrap; margin:1.3rem 0;
+}
+.video-compare-item{ display:flex; flex-direction:column; align-items:center; gap:.55rem; }
+.video-compare-item video{
+  height:clamp(230px,34vw,400px); width:auto; max-width:100%;
+  border:2px solid var(--photo-border); display:block;
+}
+.video-compare-label{
+  font-family:var(--font-mono); font-size:.7rem; letter-spacing:.07em; text-transform:uppercase;
+  color:var(--maroon); text-align:center; margin:0;
+}
+.video-compare-note{
+  font-family:var(--font-mono); font-size:.78rem; line-height:1.5; color:var(--ink-faint);
+  text-align:center; max-width:62ch; margin:.9rem auto 0;
+}
+@media (max-width:640px){
+  .video-compare{ flex-direction:column; align-items:center; }
+  .video-compare-item video{ height:auto; width:100%; max-width:320px; }
+}
 
 /* ============ BADGES ============ */
 .badge{
@@ -605,7 +632,7 @@ footer.site-foot{ padding:2.5rem 0 3.5rem; }
 .manifest-group{ margin-bottom:1.15rem; overflow:hidden; }
 .manifest-group:last-child{ margin-bottom:0; }
 /* size ladder is deliberate: title > label ("What I did" / "Carried
-   Forward") > checkbox item text, so the group labels read as real
+   Forward") > bullet item text, so the group labels read as real
    sub-headers rather than a small caption tag above bigger body text. */
 .manifest-label{
   font-family:var(--font-mono); font-size:clamp(1.05rem,1.95vw,1.58rem);
@@ -620,19 +647,19 @@ footer.site-foot{ padding:2.5rem 0 3.5rem; }
    line-by-line -- so a li beside the drawing float would get squeezed
    into one narrow lane for its whole height even long after the float's
    bottom edge had passed, instead of widening back out. Plain block flow
-   with a floated checkbox is what actually gives per-line text reflow. */
-/* hanging indent, not a float, for the checkbox -- Mark II's drawing is
-   float:left (bottom-left placement) same as a floated checkbox would be,
+   with a floated bullet is what actually gives per-line text reflow. */
+/* hanging indent, not a float, for the bullet -- Mark II's drawing is
+   float:left (bottom-left placement) same as a floated bullet would be,
    and two same-side floats stack next to each other instead of the
-   checkbox sitting at the text's own start. text-indent pulls the first
-   line back into the padding-left gutter (where the inline-block checkbox
+   bullet sitting at the text's own start. text-indent pulls the first
+   line back into the padding-left gutter (where the inline-block bullet
    sits); wrapped lines fall at the padding edge, so it still reads as a
    normal checklist indent either side of the drawing. */
 /* no hanging indent (padding-left/text-indent) here on purpose -- the
-   checkbox is a plain inline-block sitting directly in front of the item
+   bullet is a plain inline-block sitting directly in front of the item
    text, inside the same paragraph run, so it travels with the text as one
    unit through every line the float reshapes -- a hanging indent would
-   only re-apply its pull-back to the first line, leaving the checkbox
+   only re-apply its pull-back to the first line, leaving the bullet
    correctly wrapped but visually detached from how the rest of the block
    aligns once text passes below the float. */
 .manifest-list li{
@@ -670,17 +697,18 @@ footer.site-foot{ padding:2.5rem 0 3.5rem; }
 .gen-cover-drawing-float.placeholder span{
   font-family:var(--font-mono); font-size:.58rem; letter-spacing:.1em; text-transform:uppercase; text-align:center;
 }
+/* plain round bullet, not a bullet -- solid/filled for a "What I did"
+   item, hollow/outline-only for a "Carried Forward" item, so the two
+   groups still read as done-vs-open at a glance without looking like a
+   to-do list. Sized and positioned to sit inline with the first line of
+   text like a normal bullet marker. */
 .manifest-check{
-  display:inline-block; width:15px; height:15px; margin-right:.5em;
-  vertical-align:text-top; position:relative; top:.15em;
-  border:1.5px solid var(--maroon);
+  display:inline-block; width:7px; height:7px; margin-right:.65em;
+  vertical-align:middle; position:relative; top:-.15em;
+  border-radius:50%; border:1.5px solid var(--maroon);
 }
 .manifest-list li.done .manifest-check{ background:var(--maroon); }
-.manifest-list li.done .manifest-check::after{
-  content:''; position:absolute; left:4px; top:1px; width:4px; height:8px;
-  border:solid var(--parchment-2); border-width:0 2px 2px 0; transform:rotate(38deg);
-}
-.manifest-list li.pending .manifest-check{ border-style:dashed; }
+.manifest-list li.pending .manifest-check{ background:transparent; border-color:var(--ink-faint); }
 /* wraps text+carry-tag together as one flex item so the tag can wrap onto
    its own line when space is tight (e.g. squeezed beside a float) instead
    of overflowing the row -- min-width:0 is what lets a flex item shrink
@@ -692,21 +720,6 @@ footer.site-foot{ padding:2.5rem 0 3.5rem; }
   display:inline-block; text-indent:0;
   font-family:var(--font-mono); font-size:.68rem; letter-spacing:.05em; color:var(--maroon-bright);
   white-space:nowrap; margin-left:.4rem;
-}
-/* items that involved a wrong guess before the real cause: the struck-through
-   span is the ruled-out hypothesis, the rest of the line is the real cause
-   and fix, and the whole item is a link to that part of the full write-up. */
-.manifest-link{
-  color:inherit; text-decoration:none;
-  border-bottom:1px dashed var(--line-strong);
-  transition:color .15s ease, border-color .15s ease;
-}
-.manifest-link:hover, .manifest-link:focus-visible{
-  color:var(--maroon-bright); border-color:var(--maroon-bright);
-}
-.ruled-out{
-  text-decoration:line-through; text-decoration-color:var(--ink-faint);
-  color:var(--ink-faint);
 }
 
 /* jump targets inside a phase-body: land clear of the sticky nav, and get a
