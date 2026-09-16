@@ -373,6 +373,29 @@ blockquote.thesis{
 .light-card li::before{ content:'—'; position:absolute; left:0; color:var(--maroon); }
 .lc-status{ margin-top:auto; padding-top:.6rem; border-top:1px solid var(--line); font-family:var(--font-mono); font-size:.7rem; color:var(--ink-faint); }
 
+/* short "project report" style summary (why / what we built / what we're
+   comparing) placed above a media gallery so a visitor has context before
+   pressing play -- reuses the site's existing mono-uppercase label voice
+   (.skill-group-name) rather than inventing new typography. */
+.rl-report{ display:flex; flex-direction:column; gap:.9rem; margin:.2rem 0; }
+.rl-report-block p{ margin:0; }
+.rl-report-label{ font-family:var(--font-mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--maroon); margin-bottom:.3rem; }
+.rl-report-block p:not(.rl-report-label){ font-size:.92rem; color:var(--ink-muted); line-height:1.6; }
+.rl-report-finding{ font-size:.92rem; color:var(--ink-muted); line-height:1.6; margin:.2rem 0 0; }
+.rl-report-finding strong{ color:var(--maroon-deep); }
+
+/* a small gallery of labeled clips inside one light-card, e.g. comparing RL
+   policies/ablations side by side -- distinct from .video-compare (which
+   height-matches exactly two mismatched-aspect clips); this wraps N clips
+   of roughly the same aspect into a simple auto-fit grid. Each clip gets a
+   short caption, not just a filename-style label, so the clip is legible
+   without having already read the report text above it. */
+.rl-video-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.2rem; }
+.rl-video-item{ display:flex; flex-direction:column; gap:.45rem; }
+.rl-video-item video{ width:100%; height:auto; display:block; border:1px solid var(--line-strong); background:#1a1210; }
+.rl-video-label{ font-family:var(--font-mono); font-size:.7rem; letter-spacing:.05em; text-transform:uppercase; color:var(--maroon); }
+.rl-video-caption{ font-size:.78rem; color:var(--ink-faint); line-height:1.45; margin:0; }
+
 /* ============ SKILLS ============ */
 .skill-groups{ display:flex; flex-direction:column; gap:1.6rem; }
 .skill-group{ display:grid; grid-template-columns:180px 1fr; gap:1rem; align-items:start; padding:1.1rem 0; border-top:1px solid var(--line); }
@@ -449,6 +472,27 @@ footer.site-foot{ padding:2.5rem 0 3.5rem; }
   background:
     repeating-linear-gradient(135deg, rgba(122,36,29,0.06) 0 10px, transparent 10px 20px),
     var(--blush-2);
+}
+
+/* ============ FOLDABLE VARIANT — "current era" (post-CMU) ============
+   The blush/archived tint above is deliberately reserved for work from
+   BEFORE Oscar joined CMU (Earlier Work, Undergraduate Projects @ VT) --
+   time-boxed, done, filed away. Anything from during the CMU/lab era reads
+   instead in the same neutral parchment + maroon treatment as the main
+   research (.flagship) above, even when it's still tucked into a foldable
+   section for space reasons. Add class="folder-current" alongside
+   class="folder" to opt a section into this palette. */
+.folder.folder-current{ border-color:var(--line-strong); background:var(--parchment-2); }
+.folder.folder-current .folder-tab{ color:var(--maroon-deep); }
+.folder.folder-current .folder-tab .folder-count{ border-color:var(--line-strong); background:var(--parchment-3); }
+.folder.folder-current .folder-body{ border-top:1px dashed var(--line-strong); }
+.folder.folder-current .folder-body-intro{ opacity:1; color:var(--ink-muted); }
+.folder.folder-current .light-card{ border-color:var(--line-strong); }
+.folder.folder-current .media-slot{
+  border-color:var(--line-strong);
+  background:
+    repeating-linear-gradient(135deg, rgba(122,36,29,0.05) 0 10px, transparent 10px 20px),
+    var(--parchment-3);
 }
 
 /* ============ HARDWARE GENERATION COVERS (v4 — seamless ribbon, framed) ============

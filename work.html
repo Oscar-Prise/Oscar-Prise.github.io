@@ -54,7 +54,9 @@
       <li><a class="navlink" href="index.html">About</a></li>
       <li><a class="navlink" href="story.html">Story</a></li>
       <li><a class="navlink active" href="work.html">Work</a></li>
+      <!-- Outside the Lab — dropped for now per Oscar, 2026-09-16. Uncomment to restore.
       <li><a class="navlink" href="outside.html">Outside the Lab</a></li>
+      -->
     </ul>
   </div>
 </header>
@@ -413,6 +415,83 @@
         </div>
       </div>
 
+      <!-- ============ FOLDABLE: CLASS PROJECTS ============
+           Post-CMU work, chronologically the same era as the flagship
+           project above -- uses .folder-current (parchment/maroon, same as
+           the main research) rather than the blush/archived tint reserved
+           for the two pre-CMU folders below. -->
+      <details class="folder folder-current" id="work-class-projects">
+        <summary class="folder-tab">
+          <span class="folder-tab-left">
+            <svg class="folder-chevron"><use href="#i-chevron"></use></svg>
+            Class Projects — Carnegie Mellon
+          </span>
+          <span class="folder-count">1 project, 2026</span>
+        </summary>
+        <div class="folder-body">
+          <p class="folder-body-intro">Coursework during the same CMU era as the project above — kept lightweight here, full report linked below.</p>
+          <div class="light-card">
+            <div class="lc-meta">Intro to Reinforcement Learning · Carnegie Mellon · Feb – May 2026</div>
+            <h4>Musculoskeletal Digital-Twin of Human Gait via Reinforcement Learning</h4>
+            <p style="font-size:.9rem;color:var(--ink-muted);">With Changseob Song and Rajiv Josh.</p>
+
+            <div class="rl-report">
+              <div class="rl-report-block">
+                <p class="rl-report-label">Why</p>
+                <p>Rehab is trial-and-error — every patient responds differently to a given recovery plan, so clinicians largely learn what works by testing it on the patient directly. A "digital twin" moves that trial-and-error into simulation instead: an RL-trained virtual patient that lets a recovery strategy get tested and forecast safely before it's tried on a person. This project builds the first piece — a musculoskeletal agent that learns human-like walking — as a step toward eventually predicting gait for stroke, Parkinson's, and cerebral palsy patients.</p>
+              </div>
+              <div class="rl-report-block">
+                <p class="rl-report-label">What we built</p>
+                <p>A full-body musculoskeletal model in SCONE, simulated with the Hyfydy physics engine. Instead of controlling every individual muscle, the agent outputs 25 muscle-synergy activations (11 per leg + 3 trunk) — closer to how the CNS actually simplifies motor control. Reward combines a Gaussian forward-velocity/stability tracking term, a range-of-motion penalty on the knees and lumbar, and two terms we specifically tested the impact of: a muscle-effort penalty and a fall penalty (episode ends if the agent's center of mass drops).</p>
+              </div>
+              <div class="rl-report-block">
+                <p class="rl-report-label">What the videos below compare</p>
+                <p>Two questions. First: which training method actually learns to walk — random actions vs. PPO (on-policy) vs. SAC (off-policy) vs. SAC with a learned dynamics model bolted on (model-based RL). Second: do the effort and fall reward terms actually matter — tested by re-training SAC with each one removed.</p>
+              </div>
+            </div>
+
+            <div class="tag-row"><span class="tag">Reinforcement Learning</span><span class="tag">Musculoskeletal Simulation</span><span class="tag">SCONE / Hyfydy</span><span class="tag">SAC / PPO</span><span class="tag">Muscle Synergies</span></div>
+
+            <div class="rl-video-grid">
+              <div class="rl-video-item">
+                <p class="rl-video-label">Random agent — baseline</p>
+                <video controls preload="metadata"><source src="videos/digital-twin-random-agent.mp4" type="video/mp4"></video>
+                <p class="rl-video-caption">No training at all. Falls within a step — the starting point every method below has to beat.</p>
+              </div>
+              <div class="rl-video-item">
+                <p class="rl-video-label">PPO (on-policy)</p>
+                <video controls preload="metadata"><source src="videos/digital-twin-ppo.mp4" type="video/mp4"></video>
+                <p class="rl-video-caption">Never got past one gait cycle — its action variance collapsed before it found a walking strategy.</p>
+              </div>
+              <div class="rl-video-item">
+                <p class="rl-video-label">SAC (off-policy)</p>
+                <video controls preload="metadata"><source src="videos/digital-twin-sac.mp4" type="video/mp4"></video>
+                <p class="rl-video-caption">Walks without falling after 20M training steps — entropy-driven exploration is what got it there.</p>
+              </div>
+              <div class="rl-video-item">
+                <p class="rl-video-label">Model-based RL</p>
+                <video controls preload="metadata"><source src="videos/digital-twin-model-based-rl.mp4" type="video/mp4"></video>
+                <p class="rl-video-caption">SAC plus a learned ensemble dynamics model. Similar end performance to SAC, with fewer training collapses over a longer 75M-step run.</p>
+              </div>
+              <div class="rl-video-item">
+                <p class="rl-video-label">SAC — no effort penalty (ablation)</p>
+                <video controls preload="metadata"><source src="videos/digital-twin-sac-no-effort-reward.mp4" type="video/mp4"></video>
+                <p class="rl-video-caption">Muscle activation goes unconstrained — visibly stiffer, over-actuated gait, and more falls during training.</p>
+              </div>
+              <div class="rl-video-item">
+                <p class="rl-video-label">SAC — no fall penalty (ablation)</p>
+                <video controls preload="metadata"><source src="videos/digital-twin-sac-no-fall-reward.mp4" type="video/mp4"></video>
+                <p class="rl-video-caption">Training curves barely change, but the stance visibly widens — a less human-like walking pattern.</p>
+              </div>
+            </div>
+
+            <p class="rl-report-finding"><strong>Takeaway:</strong> SAC's exploration was what made walking learnable at all — PPO and random both stayed near zero reward. Of the two reward terms tested, the effort penalty mattered most for realistic movement; the fall penalty barely moved the training curves but still shaped a more natural-looking gait.</p>
+
+            <div class="lc-status">SAC vs. PPO vs. random baseline, model-based RL, and two reward ablations · <span class="badge active"><span class="badge-dot"></span>CMU · Completed</span></div>
+          </div>
+        </div>
+      </details>
+
       <!-- ============ FOLDABLE: EARLIER WORK ============ -->
       <details class="folder" id="work-earlier">
         <summary class="folder-tab">
@@ -510,9 +589,11 @@
         </div>
       </details>
 
+      <!-- Outside the Lab CTA — dropped for now per Oscar, 2026-09-16. Uncomment to restore.
       <div class="hero-ctas" style="margin-top:2.4rem;">
         <a class="btn ghost" href="outside.html">Outside the Lab ↓</a>
       </div>
+      -->
 
     </div>
   </section>
