@@ -52,7 +52,6 @@
     </a>
     <ul class="navlinks">
       <li><a class="navlink" href="index.html">About</a></li>
-      <li><a class="navlink" href="story.html">Story</a></li>
       <li><a class="navlink active" href="work.html">Work</a></li>
       <!-- Outside the Lab — dropped for now per Oscar, 2026-09-16. Uncomment to restore.
       <li><a class="navlink" href="outside.html">Outside the Lab</a></li>
@@ -66,7 +65,6 @@
   <section class="page-hero">
     <div class="container">
       <a class="back-link" href="index.html">&larr; Back to About</a>
-      <p class="record-label">Record II &amp; III — Service Record</p>
       <h1>Work Experience</h1>
       <p class="plate-intro">Currently leading hip exoskeleton design at CMU's Metamobility Lab, told in phases — failures and iterations included, not just the outcome. Earlier work and undergraduate projects are folded below if you want the fuller history.</p>
     </div>
@@ -130,7 +128,8 @@
                     <div class="manifest-label">What I did</div>
                     <ul class="manifest-list">
                       <li class="done"><span class="manifest-check"></span>Reverse-engineered and converted a 2.5kg commercial exoskeleton to run our own motor and electronics</li>
-                      <li class="done"><span class="manifest-check"></span>Diagnosed motor rocking under load by testing three concurrent hypotheses — pelvis fit, thigh contact, and hinge play — and used FEA to confirm torsional load at the hinge was the real driver</li>
+                      <li class="done"><span class="manifest-check"></span>Diagnosed motor rocking under load by testing three concurrent hypotheses — pelvis fit, thigh contact, and hinge play</li>
+                      <!-- FEA hidden 2026-10-17 (Oscar). Original bullet ending: "— and used FEA to confirm torsional load at the hinge was the real driver" -->
                       <li class="done"><span class="manifest-check"></span>Recorded this lab's first-ever measurable metabolic benefit</li>
                     </ul>
                   </div>
@@ -175,12 +174,6 @@
                 <figcaption>The shadow-casting setup: an optical comparator projecting the mounting plate at a larger scale, read off against the Quadra-Chek digital readout to reconstruct the hole pattern by hand.</figcaption>
               </figure>
               <p>With a reliable reading, I ran a metabolic test on the converted device: a 1% reduction versus no exoskeleton, single subject — modest, but the first measurable metabolic benefit this lab had produced. The past student's device hadn't shown one. That result was enough for our PI to commit to a full reverse-engineering of the device.</p>
-              <p class="sub">Media</p>
-              <div class="media-grid">
-                <div class="media-slot"><svg class="icon"><use href="#i-photo"></use></svg><span class="slot-type">Photo</span><span class="slot-desc">The finished adaptor</span></div>
-                <div class="media-slot"><svg class="icon"><use href="#i-cad"></use></svg><span class="slot-type">CAD</span><span class="slot-desc">Adaptor design</span></div>
-                <div class="media-slot"><svg class="icon"><use href="#i-photo"></use></svg><span class="slot-type">Photo</span><span class="slot-desc">Melted PLA failure</span></div>
-              </div>
             </div>
           </div>
 
@@ -218,7 +211,10 @@
               <p class="sub">The thigh interface</p>
               <p>I considered adding high-thigh straps for more contact area, reasoning more contact would reduce rocking. Weighed against the comfort and gait trade-offs, I set the idea aside for the time being — a thread I'd pick back up in Mark II.</p>
               <p class="sub jump-target" id="mark1-hinge-fea">Hinge failures</p>
-              <p>The hinge looked like the fastest fix, so it got most of my attention. The door hinge already in place had gaps both between the pin and leaf and leaf-to-leaf. A quick plastic hinge sourced off Amazon didn't endure even 12 N&middot;m. That failure pointed me toward a new hypothesis — that the thigh interface's unusual curvature was driving outsized torsional force into the hinge — and I guided an undergrad through an FEA study to test it. His analysis, based on principal stress theory (&sigma;<sub>1,2</sub> = (&sigma;<sub>x</sub>+&sigma;<sub>y</sub>)/2 &plusmn; &radic;(((&sigma;<sub>x</sub>&minus;&sigma;<sub>y</sub>)/2)&sup2; + &tau;<sub>xy</sub>&sup2;)), showed that because the shear/torsional term is squared, torsional loading dominates far more than plane stress — so the fix was geometric: move the curved part of the thigh interface further up the leg. I adopted the change.</p>
+              <p>The hinge looked like the fastest fix, so it got most of my attention. The door hinge already in place had gaps both between the pin and leaf and leaf-to-leaf. A quick plastic hinge sourced off Amazon didn't endure even 12 N&middot;m.</p>
+              <!-- FEA hidden 2026-10-17 (Oscar) — kept for later. Removed text:
+              That failure pointed me toward a new hypothesis — that the thigh interface's unusual curvature was driving outsized torsional force into the hinge — and I guided an undergrad through an FEA study to test it. His analysis, based on principal stress theory (&sigma;<sub>1,2</sub> = (&sigma;<sub>x</sub>+&sigma;<sub>y</sub>)/2 &plusmn; &radic;(((&sigma;<sub>x</sub>&minus;&sigma;<sub>y</sub>)/2)&sup2; + &tau;<sub>xy</sub>&sup2;)), showed that because the shear/torsional term is squared, torsional loading dominates far more than plane stress — so the fix was geometric: move the curved part of the thigh interface further up the leg. I adopted the change.
+              -->
               <p>Meanwhile, a McMaster metal hinge held to 12 N&middot;m but rocked worse than the plastic one, from the same leaf/pin gap problem.</p>
               <figure class="inline-figure float-right">
                 <video controls preload="metadata" poster="images/gen1-hinge-poster.jpg">
@@ -227,11 +223,6 @@
                 <figcaption>The McMaster metal hinge — the third one tried, after the door hinge and the plastic Amazon hinge — showing the same leaf/pin play that caused the rocking.</figcaption>
               </figure>
               <p>I modified it myself — dowel pins, redrilled holes, shims — which fixed the wobble and pushed it to 15 N&middot;m, where it broke. Three off-the-shelf hinges, three separate workarounds, still failing: that's what convinced me to design a custom hinge from scratch instead.</p>
-              <p class="sub">Media</p>
-              <div class="media-grid">
-                <div class="media-slot"><svg class="icon"><use href="#i-cad"></use></svg><span class="slot-type">CAD</span><span class="slot-desc">Device vs. commercial, side by side</span></div>
-                <div class="media-slot"><svg class="icon"><use href="#i-video"></use></svg><span class="slot-type">Video</span><span class="slot-desc">Door hinge &amp; plastic hinge failing under load</span></div>
-              </div>
             </div>
           </div>
 
@@ -381,12 +372,6 @@
               <p class="sub">Removing the hinge for good</p>
               <p>The PhD student in charge took my advice to remove the ABAD hinge entirely — it does very little during level-ground walking anyway — replacing it with a carbon-fiber sheet that flexes slightly in the ABAD direction, closing out two generations of hinge failures for good. The PhD also tried a passive thigh-damping system; it didn't actually damp, but it did apply the strap-close-to-the-motor principle from Mark II.</p>
               <p>The result: about 3.2kg, tested on three subjects for metabolic benefit at roughly 10 N&middot;m — 8 N&middot;m for one subject, well under what Mark II proved the hardware could handle. That's the number that mattered: it's the direct test of the hypothesis that opened this whole project.</p>
-              <p class="sub">Media</p>
-              <div class="media-grid">
-                <div class="media-slot"><svg class="icon"><use href="#i-cad"></use></svg><span class="slot-type">CAD</span><span class="slot-desc">Movable, multi-size pelvis interface</span></div>
-                <div class="media-slot"><svg class="icon"><use href="#i-photo"></use></svg><span class="slot-type">Photo</span><span class="slot-desc">Carbon-fiber ABAD flexure</span></div>
-                <div class="media-slot"><svg class="icon"><use href="#i-cad"></use></svg><span class="slot-type">CAD</span><span class="slot-desc">Straight-bar alternative configuration</span></div>
-              </div>
             </div>
           </div>
           <p class="credit-note">Ends this generation at 3.2kg, tested on three subjects — the number that answers Mark I's opening question.</p>
@@ -396,17 +381,19 @@
       <div class="flagship" style="border-top:none; margin-top:1.8rem;">
         <div class="support-module" style="margin-top:0; border-top:none; padding-top:0;">
           <h4>Also on this project</h4>
-          <div class="support-grid">
+          <div class="support-grid single">
             <ul class="support-list">
               <li>Supported 5 human-subject experiments — Bertec instrumented treadmill, K5 metabolic cart, marker-based motion capture, EMG placement.</li>
               <li>Mentored 3 undergraduates. Built metabolic probes for a labmate's data pipeline.</li>
               <li>Currently supporting two PhD students: one on data collection and processing, the other on an outdoor human experiment — where I'm writing the test plans, pilot-testing protocols on myself, and scouting locations.</li>
             </ul>
+            <!-- FEA hidden 2026-10-17 (Oscar) — files kept in images/: gen1-hinge-fea-stress.jpg, gen1-hinge-fea-notes.pdf
             <div class="fea-callout">
               <img src="images/gen1-hinge-fea-stress.jpg" alt="SolidWorks von Mises stress plot of the thigh-bar geometry with the failing hinge, showing peak stress of 62.5 megapascals against a 60 megapascal yield strength" class="photo-border" style="width:100%; margin-bottom:.9rem;">
               <p class="fea-finding">When a Mark I hinge kept failing, I guided a mentee through an FEA study comparing thigh-bar curvature options. Using maximum principal stress theory (chosen because PLA is brittle), his model put the straighter "medium" curve at about 52 MPa combined stress against a 60 MPa yield strength, versus about 43 MPa for the more sharply curved "high" option — the straighter geometry carries more torsional load, and that term dominates the combined stress. Modeled on the geometry that was actually failing on the bench, the same method predicted about 63 MPa: over yield, matching what kept breaking.</p>
               <p style="margin-top:.7rem;"><a href="images/gen1-hinge-fea-notes.pdf" target="_blank" rel="noopener" style="font-family:var(--font-mono); font-size:.72rem; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint); text-decoration:underline; text-decoration-color:var(--line-strong);">Full FEA notes (PDF) &rarr;</a></p>
             </div>
+            -->
           </div>
         </div>
 
@@ -543,7 +530,7 @@
           <span class="folder-count">3 projects, 2021–2023</span>
         </summary>
         <div class="folder-body">
-          <p class="folder-body-intro">Coursework and team projects from before the field rejection story turned into a real direction — see <a href="story.html">How I Got Here</a>.</p>
+          <p class="folder-body-intro">Coursework and team projects from before the field rejection story turned into a real direction — see <a href="index.html#story">How I Got Here</a>.</p>
           <div class="light-grid" style="margin-top:0;">
             <div class="light-card">
               <div class="lc-meta">DJI RoboMaster Competition · Virginia Tech · 2021–2023</div>
@@ -553,7 +540,6 @@
                 <li>Built a mobile welded test chassis to field-test target lock-on robustness</li>
                 <li>Trained 4 new members on converting 3D CAD into CNC-manufacturable parts</li>
               </ul>
-              <div class="media-slot" style="min-height:70px;"><svg class="icon"><use href="#i-photo"></use></svg><span class="slot-type">Photo</span><span class="slot-desc">Launcher build</span></div>
               <div class="lc-status">Full write-up pending · <span class="badge archived">Archived</span></div>
             </div>
             <div class="light-card">

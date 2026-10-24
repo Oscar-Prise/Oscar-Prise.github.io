@@ -34,7 +34,6 @@
     </a>
     <ul class="navlinks">
       <li><a class="navlink active" href="index.html">About</a></li>
-      <li><a class="navlink" href="story.html">Story</a></li>
       <li><a class="navlink" href="work.html">Work</a></li>
       <!-- Outside the Lab — dropped for now per Oscar, 2026-09-16. Uncomment to restore.
       <li><a class="navlink" href="outside.html">Outside the Lab</a></li>
@@ -52,9 +51,9 @@
       <div>
         <p class="eyebrow">M.S. Mechanical Engineering · Carnegie Mellon · Metamobility Lab</p>
         <h1>Oscar Luo</h1>
-        <p class="lede">I'm a mechanical engineer building exoskeletons — currently the hip exoskeleton lead at Carnegie Mellon's Metamobility Lab, working on my M.S. after a B.S. from Virginia Tech. A device with great hardware and mediocre control still moves inhumanly; great control on the wrong hardware never reaches the person wearing it.</p>
+        <p class="lede">I'm a mechanical engineer building exoskeletons — currently the hip exoskeleton lead at Carnegie Mellon's Metamobility Lab, working on my M.S. after a B.S. from Virginia Tech.</p>
         <div class="hero-ctas">
-          <a class="btn" href="story.html">Read How I Got Here ↓</a>
+          <a class="btn" href="#story">Read How I Got Here ↓</a>
           <a class="btn ghost" href="work.html">See the Work ↓</a>
         </div>
         <p class="hero-note">Open to industry robotics/controls roles and continued research.</p>
@@ -65,11 +64,71 @@
         </div>
       </div>
     </div>
-    <div class="container status-strip">
-      <span>STATUS: <b>ACTIVE</b></span>
-      <span>LOCATION: <b>PITTSBURGH, PA</b></span>
-      <span>FOCUS: <b>EXOSKELETON HARDWARE + CONTROL</b></span>
-      <span>NEXT: <b>TORQUE TRANSMISSIBILITY STUDY</b></span>
+    <div class="container doc-strip">
+      <a href="files/oscar-luo-resume.pdf" target="_blank" rel="noopener">Résumé (PDF)</a>
+      <a href="files/oscar-luo-cv.pdf" target="_blank" rel="noopener">CV (PDF)</a>
+      <a href="https://www.linkedin.com/in/yuexin-luo-496149250/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="mailto:oluo@andrew.cmu.edu"><svg class="icon-sm" style="width:.9rem;height:.9rem;"><use href="#i-mail"></use></svg>oluo@andrew.cmu.edu</a>
+    </div>
+  </section>
+
+  <!-- ============ STORY (merged from story.html, 2026-10-17) ============ -->
+  <section class="plate" id="story">
+    <div class="container">
+      <div class="plate-head reveal">
+        <h2>How I Got Here</h2>
+      </div>
+      <div class="timeline story-timeline story-body">
+        <div class="tl-entry">
+          <div class="tl-meta"><span class="tl-dates">Before engineering</span>Warhammer &amp; Halo</div>
+          <div>
+            <div class="tl-role">The pull</div>
+            <p class="story-summary">Warhammer and Halo got me hooked on exoskeletons before I knew the field existed.</p>
+            <div class="story-full">
+              <p>I grew up on Warhammer and Halo, which is probably the honest answer for why exoskeletons pulled at me before I understood what the field actually was.</p>
+            </div>
+          </div>
+        </div>
+        <div class="tl-entry">
+          <div class="tl-meta"><span class="tl-dates">B.S. · May 2023</span>Virginia Tech</div>
+          <div>
+            <div class="tl-role">A rejection that set the direction</div>
+            <p class="story-summary">A robotics lab at Virginia Tech turned me down — the wake-up call to commit to the field.</p>
+            <div class="story-full">
+              <p>In undergrad at Virginia Tech, I was doing fairly traditional mechanical engineering coursework, and I hadn't found my direction yet. I applied to a robotics lab and got rejected — I simply wasn't competitive enough at the time. That rejection turned out to be the reason I'm here now. It was the wake-up call I needed to actually commit to the field instead of drifting through it.</p>
+            </div>
+          </div>
+        </div>
+        <div class="tl-entry">
+          <div class="tl-meta"><span class="tl-dates">Jul 2023 – Mar 2025</span>Industry, then an embedded systems lab</div>
+          <div>
+            <div class="tl-role">Finding the gap</div>
+            <p class="story-summary">Two jobs off the path showed me what I was missing, so I built a mechatronics foundation in an embedded systems lab.</p>
+            <div class="story-full">
+              <p>After graduating, I took a couple of jobs that didn't line up with what I wanted (see my <a href="work.html#work-earlier">work history</a>), and realized how much I was missing to actually build an exoskeleton myself. At the time, I thought the gap was hardware, electronics, and control — full stop. So I took an <a href="work.html#work-soochow">embedded systems research position</a> specifically to build that mechatronics foundation before going further.</p>
+            </div>
+          </div>
+        </div>
+        <div class="tl-entry">
+          <div class="tl-meta"><span class="tl-dates">2025 – present</span>Carnegie Mellon · Metamobility Lab</div>
+          <div>
+            <div class="tl-role">The list was incomplete</div>
+            <p class="story-summary">At CMU's Metamobility Lab I learned exoskeleton control is about human intent and biomechanics, not only hardware and control theory.</p>
+            <div class="story-full">
+              <p>I came to Carnegie Mellon to study control and close what I thought was the last gap. I ended up in the <a href="work.html#project-hip-exoskeleton">Metamobility Lab</a>, and getting close to real exoskeleton hardware showed me the field is further from what I'd imagined than I expected — and that my three-part list was incomplete.</p>
+              <p>Exoskeleton control isn't automotive or humanoid control. It's not really about PID or nonlinear control theory the way I'd assumed — it's about mapping human intent into assistance, in real time, for a person who's wearing the result. And underneath all of it, you need to understand human biomechanics, not just hardware and software.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="story-toggle" type="button" hidden aria-expanded="false">Read the full story ↓</button>
+      <div class="story-close">
+        <blockquote class="thesis">Hardware and control carry equal weight. Great hardware with bad control still feels inhuman to move in. Great control on the wrong hardware never reaches anyone.</blockquote>
+        <p>That's the balance I'm building toward now — roughly 60% hardware, 40% control, combined.</p>
+        <div class="hero-ctas" style="margin-top:1rem;">
+          <a class="btn" href="work.html">See the Work ↓</a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -77,13 +136,12 @@
   <section class="plate" id="skills">
     <div class="container">
       <div class="plate-head reveal">
-        <p class="eyebrow">Record IV — Capabilities</p>
-        <h2>What I'm Good At</h2>
+        <h2>Skills</h2>
       </div>
       <div class="skill-groups reveal">
         <div class="skill-group">
           <div class="skill-group-name">Software</div>
-          <div class="tag-row"><span class="tag">SolidWorks</span><span class="tag">Fusion 360</span><span class="tag">Siemens NX</span><span class="tag">MATLAB</span></div>
+          <div class="tag-row"><span class="tag">SolidWorks</span><span class="tag">Siemens NX</span><span class="tag">Fusion 360</span><span class="tag">MATLAB</span><span class="tag">Simulink</span><span class="tag">OpenSim</span><span class="tag">SCONE</span></div>
         </div>
         <div class="skill-group">
           <div class="skill-group-name">Programming Languages</div>
@@ -97,23 +155,6 @@
           <div class="skill-group-name">Embedded Systems</div>
           <div class="tag-row"><span class="tag">STM32</span><span class="tag">Jetson</span><span class="tag">Arduino</span></div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ CONTACT ============ -->
-  <section class="plate" id="contact">
-    <div class="container">
-      <div class="plate-head reveal">
-        <p class="eyebrow">Record VI — Contact</p>
-        <h2>Get in Touch</h2>
-        <p class="plate-intro">Open to industry robotics/controls roles and continued research conversations.</p>
-      </div>
-      <div class="contact-row reveal">
-        <a class="btn" href="mailto:oluo@andrew.cmu.edu"><svg class="icon-sm" style="width:1rem;height:1rem;"><use href="#i-mail"></use></svg>oluo@andrew.cmu.edu</a>
-        <a class="btn ghost" href="files/oscar-luo-resume.pdf" target="_blank" rel="noopener" download="Oscar Luo - Resume.pdf">Résumé (PDF) ↓</a>
-        <a class="btn ghost" href="files/oscar-luo-cv.pdf" target="_blank" rel="noopener" download="Oscar Luo - CV.pdf">CV (PDF) ↓</a>
-        <a class="btn ghost" href="https://www.linkedin.com/feed/" target="_blank" rel="noopener">LinkedIn ↗</a>
       </div>
     </div>
   </section>

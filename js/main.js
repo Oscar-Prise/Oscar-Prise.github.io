@@ -16,6 +16,20 @@
     poly.setAttribute('points', gearPoints(teeth, outer, inner, 100, 100));
   });
 
+  // ---- story timeline: short version by default, full text on request ----
+  var tl = document.querySelector('.story-timeline');
+  var tg = document.querySelector('.story-toggle');
+  if (tl && tg){
+    tl.classList.add('collapsed');
+    tg.hidden = false;
+    tg.addEventListener('click', function(){
+      var open = tl.classList.toggle('collapsed') === false;
+      tg.setAttribute('aria-expanded', open ? 'true' : 'false');
+      tg.textContent = open ? 'Show less \u2191' : 'Read the full story \u2193';
+      if (!open) document.getElementById('story').scrollIntoView({behavior:'smooth'});
+    });
+  }
+
   // ---- scrollspy nav (only matters on pages with in-page section anchors) ----
   var navlinks = Array.prototype.slice.call(document.querySelectorAll('[data-nav]'));
   var sections = navlinks.map(function(link){
