@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mark II — 3D Render</title>
+<!-- Web copy of the SOLIDWORKS Visualize export in images/V2_Visual/,
+     made for the inline iframe on work.html: frames downsized to 1600x900 JPG,
+     no header, and wheel-zoom left out so the page still scrolls over it. -->
+<script src="js/prototype.js"></script>
+<script src="js/browserdetect.js"></script>
+<script src="js/apple_core.js"></script>
+<script src="js/vr.js"></script>
+<script src="js/library.js"></script>
+<style>
+  html, body { margin:0; height:100%; background:#000; overflow:hidden; }
+  #viewer { width:100vw; height:100vh; display:block; cursor:grab; }
+  #viewer:active { cursor:grabbing; }
+  #viewer img { display:block; margin:0 auto; }
+  .hint {
+    position:absolute; left:50%; bottom:12px; transform:translateX(-50%);
+    font:500 12px/1 "JetBrains Mono", ui-monospace, monospace; letter-spacing:.06em;
+    color:#eee; background:rgba(0,0,0,.55); padding:6px 10px; pointer-events:none;
+    transition:opacity .4s;
+  }
+  .hint.gone { opacity:0; }
+</style>
+</head>
+<body>
+<div id="viewer"></div>
+<div class="hint" id="hint">&larr; drag to rotate &rarr;</div>
+<script>
+  window.addEventListener('load', function () {
+    // frame 19 is the front view (frame 1 is the back); intro: null skips the export's default half-spin on load
+    new AC.VR('viewer', 'images/Frame######.jpg', [36, 1], { invert: false, initialPos: [18, 0], intro: null });
+  });
+  var hint = document.getElementById('hint');
+  ['mousedown', 'touchstart'].forEach(function (ev) {
+    // capture phase: vr.js stops the event before it bubbles to document
+    window.addEventListener(ev, function () { hint.classList.add('gone'); }, { once: true, capture: true });
+  });
+</script>
+</body>
+</html>

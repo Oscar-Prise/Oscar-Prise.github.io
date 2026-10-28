@@ -66,7 +66,7 @@
     <div class="container">
       <a class="back-link" href="index.html">&larr; Back to About</a>
       <h1>Work Experience</h1>
-      <p class="plate-intro">Currently leading hip exoskeleton design at CMU's Metamobility Lab, told in phases — failures and iterations included, not just the outcome. Earlier work and undergraduate projects are folded below if you want the fuller history.</p>
+      <p class="plate-intro">Hip exoskeleton work at CMU's Metamobility Lab — I led its design from Sep 2025 to May 2026 and now work on its control and sim-to-real — told in phases — failures and iterations included, not just the outcome. Earlier work and undergraduate projects are folded below if you want the fuller history.</p>
     </div>
   </section>
 
@@ -79,11 +79,11 @@
           <h3>Hip Exoskeleton</h3>
           <span class="badge active"><span class="badge-dot"></span>Active — Sep 2025–Present</span>
         </div>
-        <p class="flagship-role">Lead Designer · Metamobility Lab, Carnegie Mellon University</p>
+        <p class="flagship-role">Lead Designer, Sep 2025 – May 2026; then control &amp; sim-to-real · Metamobility Lab, Carnegie Mellon University</p>
 
         <p class="flagship-thesis">The question underneath all three generations below: could a lighter, lower-torque exoskeleton design deliver more metabolic benefit than a heavier, higher-torque one?</p>
 
-        <p class="flagship-pattern">Most of what follows has the same shape: a first guess that turned out wrong, and the real cause underneath it. Struck-through items below are the wrong guesses — click one to jump to that part of the story.</p>
+        <p class="flagship-pattern">Most of what follows has the same shape: a first guess that turned out wrong, and the real cause underneath it.</p>
 
         <p class="context-line">Before touching hardware: two months cleaning up an existing PhD student's control codebase — unglamorous, undocumented work, but it's how I got embedded in the project in the first place.</p>
 
@@ -91,7 +91,7 @@
           <div class="stat">
             <div class="stat-num">3.2kg</div>
             <div class="stat-label">Current weight</div>
-            <div class="stat-sub">4.2kg baseline → 3.1kg → ~4kg → 3.2kg across three generations</div>
+            <div class="stat-sub">4.2kg baseline → 3kg → 4.1kg → 3.2kg across three generations</div>
           </div>
           <div class="stat">
             <div class="stat-num">17 N·m</div>
@@ -173,7 +173,7 @@
                 <img src="images/gen1-shadow-rig.jpg" alt="An optical comparator projecting a shadow of the driver board mounting plate at larger scale, with a digital readout measuring hole coordinates">
                 <figcaption>The shadow-casting setup: an optical comparator projecting the mounting plate at a larger scale, read off against the Quadra-Chek digital readout to reconstruct the hole pattern by hand.</figcaption>
               </figure>
-              <p>With a reliable reading, I ran a metabolic test on the converted device: a 1% reduction versus no exoskeleton, single subject — modest, but the first measurable metabolic benefit this lab had produced. The past student's device hadn't shown one. That result was enough for our PI to commit to a full reverse-engineering of the device.</p>
+              <p>With a reliable reading, I ran a metabolic test on the converted device: a 5% reduction versus no exoskeleton, single subject — not conclusive, but the first measurable metabolic benefit this lab had produced. The past student's device hadn't shown one. That result was enough for our PI to commit to a full reverse-engineering of the device.</p>
             </div>
           </div>
 
@@ -181,7 +181,12 @@
             <div class="phase-head"><span class="phase-num">II</span><h4>Full Reverse-Engineering — Three Suspects, One Culprit</h4></div>
             <div class="phase-body">
               <p>Full reverse-engineering began at speed — I wanted a testable result fast, so I started with whatever was quick and cheap, evaluated it, and moved on when it failed. My CAD ended up visually near-identical to the commercial original, built entirely from measurement since no manufacturer drawings existed. Our 3D printer was too small for the full-scale parts, so I redesigned around that constraint while keeping the structure intact.</p>
-              <p>When motor rocking showed up under load, I had three suspects and worked all three at once: the pelvis interface, insufficient thigh contact, and the hinge.</p>
+              <figure class="inline-figure wide">
+                <iframe class="render-frame" src="images/gen1-3d-viewer/index.html" title="Interactive 360-degree render of the Mark I hip exoskeleton — drag to rotate" loading="lazy"></iframe>
+                <figcaption>Mark I, rendered in SOLIDWORKS Visualize — drag to rotate a full 360&deg;. The full-size render opens at 4K, with scroll-to-zoom.</figcaption>
+                <div class="render-actions"><a class="btn ghost" href="images/V1_Visual%20(2)/Data/index.html" target="_blank" rel="noopener">See full-size render &nearr;</a></div>
+              </figure>
+              <p>When motor rocking showed up under load — the commercial device itself already rocked at 9 N·m — I had three suspects and worked all three at once: the pelvis interface, insufficient thigh contact, and the hinge.</p>
               <p class="sub">The pelvis interface</p>
               <p>Hypershell's own pelvis part sits on top of the glutes rather than the lower back, which I suspected made it inherently less secure. I tried several back-plate drafts — deliberately cheap, fit-check only, never load-tested for torque — but none fit perfectly. This thread stayed open through the end of Mark I.</p>
               <figure class="inline-figure wide">
@@ -226,7 +231,7 @@
             </div>
           </div>
 
-          <p class="credit-note">Ends this generation at 3.1kg, down from the prior student's 4.2kg (both with battery).</p>
+          <p class="credit-note">Ends this generation at 3kg, down from the prior student's 4.2kg (both with battery).</p>
         </div>
       </details>
 
@@ -314,7 +319,12 @@
           <div class="phase">
             <div class="phase-head"><span class="phase-num">V</span><h4>The Weight Trade-off</h4></div>
             <div class="phase-body">
-              <p>Solving the rocking issue brought the weight back up from 3.1kg to around 4kg — a byproduct of building tightly-fitted, integrated parts (the hingeless pelvis, the custom shoulder-bolt hinge, the close-contact thigh cuff) rather than a purely weight-optimized structure. I'm treating that honestly as a trade-off, not a regression. This is also a device custom-fit to one body — my own — which is its own limitation, and the subject of Mark III.</p>
+              <p>Solving the rocking issue brought the weight back up from 3kg to 4.1kg (with battery) — a byproduct of building tightly-fitted, integrated parts (the hingeless pelvis, the custom shoulder-bolt hinge, the close-contact thigh cuff) rather than a purely weight-optimized structure. I'm treating that honestly as a trade-off, not a regression. This is also a device custom-fit to one body — my own — which is its own limitation, and the subject of Mark III.</p>
+              <figure class="inline-figure wide">
+                <iframe class="render-frame" src="images/gen2-3d-viewer/index.html" title="Interactive 360-degree render of the Mark II hip exoskeleton — drag to rotate" loading="lazy"></iframe>
+                <figcaption>Mark II, rendered in SOLIDWORKS Visualize — drag to rotate a full 360&deg;. The full-size render opens at 4K, with scroll-to-zoom.</figcaption>
+                <div class="render-actions"><a class="btn ghost" href="images/V2_Visual/Data/index.html" target="_blank" rel="noopener">See full-size render &nearr;</a></div>
+              </figure>
             </div>
           </div>
         </div>
@@ -371,7 +381,16 @@
               <p>An undergrad developed a straight-bar alternative configuration — a good concept that needed polishing, but he left partway through the summer before finishing it. I ended up cleaning up the CAD for the whole project.</p>
               <p class="sub">Removing the hinge for good</p>
               <p>The PhD student in charge took my advice to remove the ABAD hinge entirely — it does very little during level-ground walking anyway — replacing it with a carbon-fiber sheet that flexes slightly in the ABAD direction, closing out two generations of hinge failures for good. The PhD also tried a passive thigh-damping system; it didn't actually damp, but it did apply the strap-close-to-the-motor principle from Mark II.</p>
+              <figure class="inline-figure wide">
+                <iframe class="render-frame" src="images/gen3-3d-viewer/index.html" title="Interactive 360-degree render of the Mark III hip exoskeleton — drag to rotate" loading="lazy"></iframe>
+                <figcaption>Mark III, rendered in SOLIDWORKS Visualize — drag to rotate a full 360&deg;. The full-size render opens at 4K, with scroll-to-zoom.</figcaption>
+                <div class="render-actions"><a class="btn ghost" href="images/V3_Visual%20(4)/Data/index.html" target="_blank" rel="noopener">See full-size render &nearr;</a></div>
+              </figure>
               <p>The result: about 3.2kg, tested on three subjects for metabolic benefit at roughly 10 N&middot;m — 8 N&middot;m for one subject, well under what Mark II proved the hardware could handle. That's the number that mattered: it's the direct test of the hypothesis that opened this whole project.</p>
+              <figure class="inline-figure wide">
+                <img src="images/gen3-metabolic-pilot.png" alt="Bar chart of net metabolic rate for three subjects. Left: group mean 2.50 W/kg without the exoskeleton versus 2.18 W/kg with it powered, a 12.9 percent mean per-subject reduction. Right: every trial per subject in collection order, with per-subject reductions of 13.0, 7.4 and 18.4 percent.">
+                <figcaption>Mark III metabolic pilot: three subjects, exoskeleton on (ExoOn) vs. no exoskeleton (NoExo), two trials each. Net metabolic rate = last 3 minutes of each trial minus standing (Brockway). Left: mean &plusmn; SD across subjects, with the &minus;12.9% mean per-subject change; right: every trial in collection order. A pilot, not a powered study.</figcaption>
+              </figure>
             </div>
           </div>
           <p class="credit-note">Ends this generation at 3.2kg, tested on three subjects — the number that answers Mark I's opening question.</p>
@@ -380,7 +399,16 @@
 
       <div class="flagship" style="border-top:none; margin-top:1.8rem;">
         <div class="support-module" style="margin-top:0; border-top:none; padding-top:0;">
-          <h4>Also on this project</h4>
+          <h4>Control &amp; sim-to-real · Jun 2026 – present</h4>
+          <div class="support-grid single">
+            <ul class="support-list">
+              <li>Implemented and compared time-based estimation, piecewise and unified phase-variable gait-phase estimators on a hip exoskeleton across treadmill speed transitions.</li>
+              <li>Diagnosed double-peak torque commands in time-based estimation during speed changes: the rolling-average stride period lagged the true stride period, causing premature phase resets.</li>
+              <li>Selected heel-strike-triggered time-based assistance as the fit-agnostic controller for a fit study, removing feedback from fit-corrupted joint-angle and IMU signals.</li>
+              <li>Designing a study to identify human–exoskeleton fit error from onboard sensors (IMU, encoder) under injected torque, with motion capture as ground truth, to support controller compensation.</li>
+            </ul>
+          </div>
+          <h4 style="margin-top:1.4rem;">Also on this project</h4>
           <div class="support-grid single">
             <ul class="support-list">
               <li>Supported 5 human-subject experiments — Bertec instrumented treadmill, K5 metabolic cart, marker-based motion capture, EMG placement.</li>
